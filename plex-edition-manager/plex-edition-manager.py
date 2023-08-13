@@ -80,7 +80,6 @@ def get_edition(filename):
 
     return edition
 
-
 # 更新电影信息
 def update_movie(movie, edition):
     existing_edition = movie.editionTitle
