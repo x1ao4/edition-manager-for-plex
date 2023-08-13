@@ -40,7 +40,7 @@ plex-edition-manager 是一个用于管理 Plex 电影版本信息的 Python 脚
 ## 注意事项
 - 请确保您提供了正确的 Plex 账号信息和服务器名称。
 - 请确保运行脚本的设备可以连接到您的服务器。
-- 脚本依赖文件名来识别电影版本，请确保文件名中包含版本相关的信息。如果文件名中不包含任何可识别的版本信息，则无法更新版本。
+- 脚本依赖文件名来识别电影版本，请确保文件名中包含版本相关的信息。如果文件名中不包含任何可识别的版本信息，则不会更新版本。
 - 脚本仅更新 Plex 中未设置版本的电影。
 - 脚本仅支持电影类型的资料库，不支持其他类型的库（例如，电视节目）。
 - 当一部电影存在多个版本时，脚本会使用第一个文件的文件名识别和更新版本信息。
@@ -92,7 +92,7 @@ plex-edition-manager is a Python script for managing Plex movie edition informat
 ## Notes
 - Make sure you provide correct Plex account information and server name.
 - Make sure the device running the script is connected to your Plex server.
-- The script relies on filenames to identify movie editions, so make sure that filenames contain edition-related information. If no recognizable edition information is included in the filename, no edition can be updated.
+- The script relies on filenames to identify movie editions, so make sure that filenames contain edition-related information. If no recognizable edition information is included in the filename, no edition will be updated.
 - The script only updates movies that do not have an edition set in Plex.
 - The script only supports movie-type libraries and does not support other types of libraries (e.g., TV shows).
 - When a movie has multiple versions, the script uses the filename of the first file to identify and update edition information.
