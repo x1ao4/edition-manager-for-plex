@@ -40,9 +40,9 @@ def get_movies(server):
 # 判断版本
 def get_edition(filename):
     filename = filename.upper()
-    if re.search(r'\bREMUX\b', filename):
+    if re.search(r'\b(REMUX|BDREMUX|BD-REMUX)\b', filename):
         edition = 'REMUX'
-    elif re.search(r'\b(BLURAY|BD|BLU-RAY)\b', filename):
+    elif re.search(r'\b(BLURAY|BD|BLU-RAY|BD1)\b', filename):
         edition = 'BD'
     elif re.search(r'\bBDRIP\b', filename):
         edition = 'BDRIP'
