@@ -23,6 +23,15 @@ plex-edition-manager 是一个用于管理 Plex 电影版本信息的 Python 脚
 - **TS** 是使用专业设备在电影院内录制的版本，画质和音质较差。
 - **DV** 是指杜比视界，是一种 HDR 格式，提供丰富色彩和高对比度，能显示更多细节，带来逼真观影体验。
 
+## 匹配规则
+由于脚本是通过文件名匹配版本的，因此只有当您的文件名中包含 `BD-REMUX、BDREMUX、REMUX、BLU-RAY、BLURAY、BD、BDRIP、WEB-DL、WEBDL、WEBRIP、HR-HDTV、HRHDTV、HDTV、HDRIP、DVDRIP、DVDSCR、DVD、HDTC、TC、HQ-CAM、HQCAM、CAM、TS` 时（不区分大小写），才适用此脚本。例如：
+```
+Sing.2016.2160p.BluRay.REMUX.HEVC.DTS-HD.MA.TrueHD.7.1.Atmos.mkv > REMUX
+Baby.Driver.2017.BluRay.1080p.DTS-HDMA5.1.2Audio.x264.mkv > BD
+Isle.of.Dogs.2018.2160p.WEB-DL.x265.10bit.SDR.DTS-HD.MA.5.1.mkv > WEB-DL
+Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
+```
+
 ## 运行条件
 - 安装了 Python 3.0 或更高版本。
 - 安装了必要的第三方库：plexapi。
@@ -74,6 +83,15 @@ plex-edition-manager is a Python script for managing Plex movie edition informat
 - **CAM**: Recorded in theaters using cameras, even lower quality.
 - **TS**: Recorded in theaters using professional equipment, lowest quality.
 - **DV**: Refers to Dolby Vision, an HDR format that offers enhanced colors, contrast, and detail, providing a more immersive viewing experience.
+
+## Matching Rules
+As the script identifies editions based on file names, it only applies when your file name contains any of the following: `BD-REMUX, BDREMUX, REMUX, BLU-RAY, BLURAY, BD, BDRIP, WEB-DL, WEBDL, WEBRIP, HR-HDTV, HRHDTV, HDTV, HDRIP, DVDRIP, DVDSCR, DVD, HDTC, TC, HQ-CAM, HQCAM, CAM, TS` (case-insensitive). For example:
+```
+Sing.2016.2160p.BluRay.REMUX.HEVC.DTS-HD.MA.TrueHD.7.1.Atmos.mkv > REMUX
+Baby.Driver.2017.BluRay.1080p.DTS-HDMA5.1.2Audio.x264.mkv > BD
+Isle.of.Dogs.2018.2160p.WEB-DL.x265.10bit.SDR.DTS-HD.MA.5.1.mkv > WEB-DL
+Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
+```
 
 ## Requirements
 - Python 3.0 or higher installed.
