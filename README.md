@@ -34,14 +34,13 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 
 ## 运行条件
 - 安装了 Python 3.0 或更高版本。
-- 安装了必要的第三方库：plexapi。
 - 有可用的 Plex Pass 账号，并配置了 Plex 服务器。
 
 ## 使用方法
 1. 将仓库克隆或下载到计算机上的一个目录中。
 2. 修改 `start.command (Mac)` 或 `start.bat (Win)` 中的路径，以指向您存放 `plex-edition-manager.py` 脚本的目录。
 3. 双击运行 `start.command` 或 `start.bat` 脚本以执行 `plex-edition-manager.py` 脚本。
-4. 首次运行时需要您在控制台中输入您的 Plex 用户名、密码和服务器名称。这些信息将被保存在与脚本相同目录下的 `config.json` 文件中，以便将来使用。
+4. 首次运行时需要您在控制台中输入您的 Plex 服务器地址和 [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)，这些信息将被保存在与脚本相同目录下的 `config.ini` 文件中，以便将来使用。
 5. 脚本将连接到您的 Plex 服务器并从您的库中检索所有电影。
 6. 对于每部电影，脚本将根据其文件名确定其版本，并在 Plex 中更新相应的版本信息。脚本将在控制台中显示每部电影的更新情况。
 7. 当脚本运行完成时，您将看到更新的电影总数。
@@ -95,14 +94,13 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 
 ## Requirements
 - Python 3.0 or higher installed.
-- Required third-party library: plexapi.
 - A valid Plex Pass account with a configured Plex server.
 
 ## Usage
 1. Clone or download the repository to a directory on your computer.
 2. Modify the path in `start.command (Mac)` or `start.bat (Win)` to point to the directory where you store the `plex-edition-manager.py` script.
 3. Double-click `start.command` or `start.bat` to execute the `plex-edition-manager.py` script.
-4. On first run, you will need to enter your Plex username, password, and server name in the console. This information will be saved in the `config.json` file in the same directory as the script for future use.
+4. On the first run, you will need to input your Plex server address and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) in the console. This information will be saved in the `config.ini` file in the same directory for future use.
 5. The script will connect to your Plex server and retrieve all movies from your library.
 6. For each movie, the script will determine its edition based on its filename and update the corresponding edition information in Plex. The script will display the update status of each movie in the console.
 7. Once the script completes, you will see the total number of movies updated.
