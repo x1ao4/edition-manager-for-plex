@@ -1,40 +1,48 @@
 import os
 import re
-import json
-from getpass import getpass
-from plexapi.myplex import MyPlexAccount
+import requests
+from configparser import ConfigParser
 
 # 读取配置文件
 def read_config():
-    if os.path.exists('config.json'):
-        with open('config.json', 'r') as f:
-            config = json.load(f)
-            return config['username'], config['password'], config['server_name']
+    config = ConfigParser()
+    config.read('config.ini')
+    if 'server' in config.sections():
+        server = config.get('server', 'address')
+        token = config.get('server', 'token')
+        return server, token
     else:
-        return None, None, None
+        return None, None
 
 # 写入配置文件
-def write_config(username, password, server_name):
-    with open('config.json', 'w') as f:
-        json.dump({'username': username, 'password': password, 'server_name': server_name}, f)
+def write_config(server, token):
+    config = ConfigParser()
+    config.add_section('server')
+    config.set('server', 'address', server)
+    config.set('server', 'token', token)
+    with open('config.ini', 'w') as f:
+        config.write(f)
 
-# 获取用户名、密码和服务器名称
+# 获取服务器地址和令牌
 def get_credentials():
-    username, password, server_name = read_config()
-    if not username or not password or not server_name:
-        username = input('Please enter your Plex username: ')
-        password = getpass('Please enter your Plex password: ')
-        server_name = input('Please enter your Plex server name: ')
+    server, token = read_config()
+    if not server or not token:
+        server = input('Please enter your Plex server address: ')
+        token = input('Please enter your Plex token: ')
         print()
-        write_config(username, password, server_name)
-    return username, password, server_name
+        write_config(server, token)
+    return server, token
 
 # 获取所有电影
-def get_movies(server):
+def get_movies(server, token):
     movies = []
-    for library in server.library.sections():
-        if library.type == 'movie':
-            movies.extend(library.all())
+    headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
+    libraries = requests.get(f'{server}/library/sections', headers=headers).json()['MediaContainer']['Directory']
+    for library in libraries:
+        if library['type'] == 'movie':
+            library_key = library['key']
+            library_movies = requests.get(f'{server}/library/sections/{library_key}/all', headers=headers).json()['MediaContainer']['Metadata']
+            movies.extend(library_movies)
     return movies
 
 # 判断版本
@@ -64,13 +72,13 @@ def get_edition(filename):
         edition = 'DVD'
     elif re.search(r'\bHDTC\b', filename):
         edition = 'HDTC'
-    elif re.search(r'\bTC\b', filename):
+    elif re.search(r'\bTC\b', filename) and not filename.endswith('.TC'):
         edition = 'TC'
     elif re.search(r'\b(HQCAM|HQ-CAM)\b', filename):
         edition = 'HQCAM'
     elif re.search(r'\bCAM\b', filename):
         edition = 'CAM'
-    elif re.search(r'\bTS\b', filename):
+    elif re.search(r'\bTS\b', filename) and not filename.endswith('.TS'):
         edition = 'TS'
     else:
         edition = None
@@ -81,37 +89,38 @@ def get_edition(filename):
     return edition
 
 # 更新电影信息
-def update_movie(movie, edition):
-    existing_edition = movie.editionTitle
-    if not existing_edition and edition:
-        movie.editEditionTitle(edition)
-        print(f'Updated Edition for movie \"{movie.title}\" to {edition}')
-        return True
-    else:
-        return False
+def update_movie(server, token, movie, edition):
+	# 通过existing_edition获取项目是否存在editionTitle
+	existing_edition = movie.get('editionTitle')
+
+	# 如果不存在editionTitle，则更新版本信息并打印信息
+	if not existing_edition and edition:
+		movie_id = movie['ratingKey']
+		params = {'type': 1, 'id': movie_id, 'editionTitle.value': edition, 'editionTitle.locked': 1}
+		requests.put(f'{server}/library/metadata/{movie_id}', headers={'X-Plex-Token': token}, params=params)
+		print(f'Updated Edition for movie \"{movie["title"]}\" to {edition}')
+		return True
+	else:
+		return False
 
 def main():
-    # 获取用户名、密码和服务器名称
-    username, password, server_name = get_credentials()
+	# 获取服务器地址和令牌
+	server, token = get_credentials()
 
-    # 登录 Plex 账号并选择服务器
-    account = MyPlexAccount(username, password)
-    server = account.resource(server_name).connect()
+	# 获取所有电影并更新信息
+	movies = get_movies(server, token)
+	count = 0
+	for movie in movies:
+		media_parts = movie['Media'][0]['Part']
+		if media_parts and media_parts[0]['file']:
+			file_path = media_parts[0]['file']
+			file_name = os.path.basename(file_path)
+			edition = get_edition(file_name)
+			if update_movie(server, token, movie, edition):
+				count += 1
 
-    # 获取所有电影并更新信息
-    movies = get_movies(server)
-    count = 0
-    for movie in movies:
-        media_parts = movie.media[0].parts
-        if media_parts and media_parts[0].file:
-            file_path = media_parts[0].file
-            file_name = os.path.basename(file_path)
-            edition = get_edition(file_name)
-            if update_movie(movie, edition):
-                count += 1
-
-    print()
-    print(f'Total updated: {count}')
+	print()
+	print(f'Total updated: {count}')
 
 if __name__ == '__main__':
-    main()
+	main()
