@@ -46,7 +46,7 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 7. 当脚本运行完成时，您将看到更新的电影总数。
 
 ## 注意事项
-- 请确保您提供了正确的 Plex 账号信息和服务器名称。
+- 请确保您提供了正确的 Plex 服务器地址和 X-Plex-Token。
 - 请确保运行脚本的设备可以连接到您的服务器。
 - 脚本依赖文件名来识别电影版本，请确保文件名中包含版本相关的信息。如果文件名中不包含任何可识别的版本信息，则不会更新版本。
 - 脚本仅更新 Plex 中未设置版本的电影。
@@ -106,7 +106,7 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 7. Once the script completes, you will see the total number of movies updated.
 
 ## Notes
-- Make sure you provide correct Plex account information and server name.
+- Make sure you've provided the correct Plex server address and X-Plex-Token.
 - Make sure the device running the script is connected to your Plex server.
 - The script relies on filenames to identify movie editions, so make sure that filenames contain edition-related information. If no recognizable edition information is included in the filename, no edition will be updated.
 - The script only updates movies that do not have an edition set in Plex.
