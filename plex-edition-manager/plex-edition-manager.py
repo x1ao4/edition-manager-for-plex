@@ -41,8 +41,10 @@ def get_movies(server, token):
     for library in libraries:
         if library['type'] == 'movie':
             library_key = library['key']
-            library_movies = requests.get(f'{server}/library/sections/{library_key}/all', headers=headers).json()['MediaContainer']['Metadata']
-            movies.extend(library_movies)
+            response = requests.get(f'{server}/library/sections/{library_key}/all', headers=headers).json()
+            if 'MediaContainer' in response and 'Metadata' in response['MediaContainer']:
+                library_movies = response['MediaContainer']['Metadata']
+                movies.extend(library_movies)
     return movies
 
 # 判断版本
