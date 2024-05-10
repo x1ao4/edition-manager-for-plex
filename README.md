@@ -34,7 +34,7 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 
 ## 运行条件
 - 安装了 Python 3.0 或更高版本。
-- 安装了必要的第三方库：requests。（可以通过 pip3 install requests 安装）
+- 安装了必要的第三方库：requests。（可以通过 `pip3 install requests` 安装）
 - 有可用的 Plex Pass 账号，并配置了 Plex 服务器。
 
 ## 使用方法
@@ -95,7 +95,7 @@ Pacific.Rim.2013.2160p.UHD.BDRemux.TrueHD.Atmos.7.1.DoVi.mkv > REMUX · DV
 
 ## Requirements
 - Installed Python 3.0 or higher.
-- Installed required third-party library: requests. (Install with pip3 install requests)
+- Installed required third-party library: requests. (Install with `pip3 install requests`)
 - A valid Plex Pass account with a configured Plex server.
 
 ## Usage
