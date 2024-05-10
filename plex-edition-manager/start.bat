@@ -1,7 +1,7 @@
 @echo off
 
-cd C:\path\to\plex-edition-manager
+cd D:\path\to\plex-edition-manager
 
-python plex-edition-manager.py
+python3 plex-edition-manager.py
 
 pause
