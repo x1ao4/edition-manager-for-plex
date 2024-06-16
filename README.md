@@ -18,31 +18,31 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 ## 示例
 配置 `order = 剪辑版本；发行版本` 的效果：
 
-![剪辑版本 发行版本](https://github.com/x1ao4/file-tracker/assets/112841659/0d420501-ba52-4223-9198-c9ef578ceb9b)
+![剪辑版本 发行版本](https://github.com/x1ao4/plex-edition-manager/assets/112841659/e8653d81-3795-4288-89b6-c8e925b3a23b)
 
 配置 `order = 评分；国家` 的效果：
 
-![评分 国家](https://github.com/x1ao4/file-tracker/assets/112841659/54a77d44-6bf9-4630-91d3-c364c8ba9208)
+![评分 国家](https://github.com/x1ao4/plex-edition-manager/assets/112841659/8fdc9f78-ffaf-4e35-b697-97202b1d68ce)
 
 配置 `order = 帧率；比特率` 的效果：
 
-![帧率 比特率](https://github.com/x1ao4/file-tracker/assets/112841659/21905dcc-646d-4db2-b7b9-5eb1f2d55594)
+![帧率 比特率](https://github.com/x1ao4/plex-edition-manager/assets/112841659/e201f505-6eba-4fc7-aaaf-d466ea1d83e3)
 
 配置 `order = 分辨率；音频编码` 的效果：
 
-![分辨率 音频编码](https://github.com/x1ao4/file-tracker/assets/112841659/7d25d78d-499c-4e98-94db-a397c99252ea)
+![分辨率 音频编码](https://github.com/x1ao4/plex-edition-manager/assets/112841659/7ebb005a-eaef-45cb-963d-b1478a1447b4)
 
 配置 `order = 片源版本；动态范围` 的效果：
 
-![片源版本 动态范围](https://github.com/x1ao4/file-tracker/assets/112841659/8a622f3d-85d5-4487-8298-00ef333966eb)
+![片源版本 动态范围](https://github.com/x1ao4/plex-edition-manager/assets/112841659/7ceab8c9-d9d5-405c-8ad7-ed8428c7e00e)
 
 配置 `order = 内容分级；时长` 的效果：
 
-![内容分级 时长](https://github.com/x1ao4/file-tracker/assets/112841659/ef9a9f79-7855-4f8a-97c2-5e67d6a1d63d)
+![内容分级 时长](https://github.com/x1ao4/plex-edition-manager/assets/112841659/80eff52c-ea1f-4835-b71d-0fe7332b8a44)
 
 配置 `order = 发行版本；片源版本；分辨率；动态范围；视频编码；帧率；音频编码；比特率；大小；国家` 的效果：
 
-![多模块](https://github.com/x1ao4/file-tracker/assets/112841659/74a11096-1fa5-48f0-a56f-71843341160e)
+![多模块](https://github.com/x1ao4/plex-edition-manager/assets/112841659/d2655493-24c6-4aec-89ac-13c5df730f54)
 
 ## 模块
 目前 plex-edition-manager 共有 14 个模块可供选择，分别是剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分和时长，你可以选择任意数量的模块，并按照任意顺序进行排序，若个别模块获取不到信息，其他模块也会正常显示，按照需要选配即可。
@@ -469,31 +469,31 @@ You can use plex-edition-manager to add extra display information to your movies
 ## Demo
 Configuration `order = Cut;Release` looks like this:
 
-![Cut Release](https://github.com/x1ao4/file-tracker/assets/112841659/25145aeb-614b-4309-bb16-7829061ba5bb)
+![Cut Release](https://github.com/x1ao4/plex-edition-manager/assets/112841659/6b93b32d-3222-4c71-af56-cb9c6701eb93)
 
 Configuration `order = Rating;Country` looks like this:
 
-![Rating Country](https://github.com/x1ao4/file-tracker/assets/112841659/085cebae-f23a-4888-bcc0-525deb6d4809)
+![Rating Country](https://github.com/x1ao4/plex-edition-manager/assets/112841659/3ad40f79-7120-482f-8316-5f6191e30d21)
 
 Configuration `order = FrameRate;Bitrate` looks like this:
 
-![FrameRate Bitrate](https://github.com/x1ao4/file-tracker/assets/112841659/aafac0f7-23db-46b3-bd57-087afd07cd06)
+![FrameRate Bitrate](https://github.com/x1ao4/plex-edition-manager/assets/112841659/c81df176-99f5-47e0-a122-1818f067550a)
 
 Configuration `order = Resolution;AudioCodec` looks like this:
 
-![Resolution AudioCodec](https://github.com/x1ao4/file-tracker/assets/112841659/2f67172e-1790-486a-95c0-7873184de022)
+![Resolution AudioCodec](https://github.com/x1ao4/plex-edition-manager/assets/112841659/566f6ecc-97fb-4d53-8e12-db54542b9777)
 
 Configuration `order = Source;DynamicRange` looks like this:
 
-![Source DynamicRange](https://github.com/x1ao4/file-tracker/assets/112841659/b497bc71-8e92-485d-8d80-497a30e2adf5)
+![Source DynamicRange](https://github.com/x1ao4/plex-edition-manager/assets/112841659/31a029d4-349a-432f-b5f5-b1ccbca4156b)
 
 Configuration `order = ContentRating;Duration` looks like this:
 
-![ContentRating Duration](https://github.com/x1ao4/file-tracker/assets/112841659/565b277c-e6c0-4008-8eaa-405850adfd59)
+![ContentRating Duration](https://github.com/x1ao4/plex-edition-manager/assets/112841659/117af9e5-53b9-422d-8e10-2a1009de6ed4)
 
 Configuration `order = Release;Source;Resolution;DynamicRange;VideoCodec;FrameRate;AudioCodec;Bitrate;Size;Country` looks like this:
 
-![Multi-module](https://github.com/x1ao4/file-tracker/assets/112841659/f9335281-85c4-4bfd-8597-17f36129dd9d)
+![Multi-module](https://github.com/x1ao4/plex-edition-manager/assets/112841659/c44882bc-70d3-49ae-9f03-7e4141421e49)
 
 ## Modules
 Currently, plex-edition-manager offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
