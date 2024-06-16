@@ -1,0 +1,36 @@
+version: "2"
+services:
+  pem-scheduler:
+    image: mcuadros/ofelia:latest
+    container_name: pem-scheduler
+    depends_on:
+      - pem-all
+    command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
+    labels:
+      ofelia.job-run.pem-all.schedule: 0 30 22 * * *
+      ofelia.job-run.pem-all.container: pem-all
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+  pem-all:
+    image: x1ao4/plex-edition-manager:latest
+    container_name: pem-all
+    command: python plex-edition-manager.py --all
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/plex-edition-manager/config:/app/config
+  pem-new:
+    image: x1ao4/plex-edition-manager:latest
+    container_name: pem-new
+    command: python plex-edition-manager.py --new
+    ports:
+      - 8089:8089
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/plex-edition-manager/config:/app/config
+    restart: unless-stopped
+networks: {}

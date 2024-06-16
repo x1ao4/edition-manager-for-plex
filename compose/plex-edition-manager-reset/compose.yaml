@@ -1,0 +1,11 @@
+version: "2"
+services:
+  pem-reset:
+    image: x1ao4/plex-edition-manager:latest
+    container_name: pem-reset
+    command: python plex-edition-manager.py --reset
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/plex-edition-manager/config:/app/config
+networks: {}
