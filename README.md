@@ -1,5 +1,5 @@
-# plex-edition-manager <a name="plex-edition-manager-zh"></a>
-<a href="#plex-edition-manager-en">Switch to English</a>
+# Edition Manager for Plex <a name="edition-manager-for-plex-zh"></a>
+<a href="#edition-manager-for-plex-en">Switch to English</a>
 
 在 Plex 中有两个 “版本” 的概念，一个是 “[Edition](https://support.plex.tv/articles/multiple-editions/)”，一个是 “[Version](https://support.plex.tv/articles/200381043-multi-version-movies/)”，目前他们都被翻译为了 “版本”，似乎也找不到更恰当的词汇来区分这两个概念，但它们的用处却大相径庭。
 
@@ -11,41 +11,41 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 
 例如，目前的 Plex 移动端和电视端都不会显示杜比视界（DoVi）这个信息，我们可以通过把动态范围写入 Edition 来实现在移动端和电视端显示杜比视界信息，这样我们就可以区分哪些影片是杜比视界的版本了。再如，Plex 的资料库排序目前仅支持单一排序，你无法在使用标题、观众评分排序的同时显示电影的分辨率或码率等信息，同样我们也可以通过 Edition 来显示这些额外信息。
 
-使用 plex-edition-manager 可以自动获取电影和电影文件的信息，并将指定的信息写入 Edition 字段，从而丰富电影信息的展示功能。你可以通过 plex-edition-manager 将电影的剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分或时长写入电影的 Edition 字段，而且还支持自选模块和自定义排序。
+使用 edition-manager-for-plex 可以自动获取电影和电影文件的信息，并将指定的信息写入 Edition 字段，从而丰富电影信息的展示功能。你可以通过 edition-manager-for-plex 将电影的剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分或时长写入电影的 Edition 字段，而且还支持自选模块和自定义排序。
 
-你可以通过 plex-edition-manager 按照自己的需求和喜好为你的电影增加额外的展示信息，我们提供了写入 Edition 和移除 Edition 的功能，你可以随性尝试任何组合方式，也可以随时一键移除所有的 Edition 信息。虽然 Edition 是 Plex Pass 的专属功能，但是通过 plex-edition-manager，无需 Pass 订阅即可使用 Edition 功能。
+你可以通过 edition-manager-for-plex 按照自己的需求和喜好为你的电影增加额外的展示信息，我们提供了写入 Edition 和移除 Edition 的功能，你可以随性尝试任何组合方式，也可以随时一键移除所有的 Edition 信息。虽然 Edition 是 Plex Pass 的专属功能，但是通过 edition-manager-for-plex，无需 Pass 订阅即可使用 Edition 功能。
 
 ## 示例
 配置 `order = 剪辑版本；发行版本` 的效果：
 
-![剪辑版本 发行版本](https://github.com/x1ao4/plex-edition-manager/assets/112841659/e8653d81-3795-4288-89b6-c8e925b3a23b)
+![剪辑版本 发行版本](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/e8653d81-3795-4288-89b6-c8e925b3a23b)
 
 配置 `order = 评分；国家` 的效果：
 
-![评分 国家](https://github.com/x1ao4/plex-edition-manager/assets/112841659/8fdc9f78-ffaf-4e35-b697-97202b1d68ce)
+![评分 国家](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/8fdc9f78-ffaf-4e35-b697-97202b1d68ce)
 
 配置 `order = 帧率；比特率` 的效果：
 
-![帧率 比特率](https://github.com/x1ao4/plex-edition-manager/assets/112841659/e201f505-6eba-4fc7-aaaf-d466ea1d83e3)
+![帧率 比特率](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/e201f505-6eba-4fc7-aaaf-d466ea1d83e3)
 
 配置 `order = 分辨率；音频编码` 的效果：
 
-![分辨率 音频编码](https://github.com/x1ao4/plex-edition-manager/assets/112841659/7ebb005a-eaef-45cb-963d-b1478a1447b4)
+![分辨率 音频编码](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/7ebb005a-eaef-45cb-963d-b1478a1447b4)
 
 配置 `order = 片源版本；动态范围` 的效果：
 
-![片源版本 动态范围](https://github.com/x1ao4/plex-edition-manager/assets/112841659/7ceab8c9-d9d5-405c-8ad7-ed8428c7e00e)
+![片源版本 动态范围](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/7ceab8c9-d9d5-405c-8ad7-ed8428c7e00e)
 
 配置 `order = 内容分级；时长` 的效果：
 
-![内容分级 时长](https://github.com/x1ao4/plex-edition-manager/assets/112841659/80eff52c-ea1f-4835-b71d-0fe7332b8a44)
+![内容分级 时长](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/80eff52c-ea1f-4835-b71d-0fe7332b8a44)
 
 配置 `order = 发行版本；片源版本；分辨率；动态范围；视频编码；帧率；音频编码；比特率；大小；国家` 的效果：
 
-![多模块](https://github.com/x1ao4/plex-edition-manager/assets/112841659/d2655493-24c6-4aec-89ac-13c5df730f54)
+![多模块](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/d2655493-24c6-4aec-89ac-13c5df730f54)
 
 ## 模块
-目前 plex-edition-manager 共有 14 个模块可供选择，分别是剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分和时长，你可以选择任意数量的模块，并按照任意顺序进行排序，若个别模块获取不到信息，其他模块也会正常显示，按照需要选配即可。
+目前 edition-manager-for-plex 共有 14 个模块可供选择，分别是剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分和时长，你可以选择任意数量的模块，并按照任意顺序进行排序，若个别模块获取不到信息，其他模块也会正常显示，按照需要选配即可。
 
 ### 剪辑版本
 剪辑版本模块目前支持 12 种剪辑版本，该模块会优先使用电影的文件名匹配剪辑版本信息，若存在多个视频文件，则会使用文件大小最大的视频文件进行匹配，若找不到剪辑版本信息，则会通过文件内嵌的视频标题进行匹配，若依然找不到剪辑版本信息，则不会写入剪辑版本信息。支持的剪辑版本如下：
@@ -237,7 +237,7 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 时长模块会从电影元数据的媒体信息中获取视频文件的时长信息，若存在多个视频文件，则会获取文件大小最大的视频文件的时长信息，若找不到时长信息，则不会写入时长信息（时长的单位为分钟）。
 
 ## 功能
-plex-edition-manager 共有 `为所有电影添加版本信息（all）`、`为新增电影添加版本信息（new）` 和 `为所有电影重置版本信息（reset）` 三种运行模式：
+edition-manager-for-plex 共有 `为所有电影添加版本信息（all）`、`为新增电影添加版本信息（new）` 和 `为所有电影重置版本信息（reset）` 三种运行模式：
 
 - 为所有电影添加版本信息：根据用户配置，在排除掉需要跳过的资料库后为其余库中的所有电影添加版本信息，已经存在版本信息的电影会被跳过。
 - 为新增电影添加版本信息：通过 Webhooks 功能监听服务器事件，实时获取新增项目的元数据，根据用户配置，仅为新增电影（不含需要跳过的资料库中的新增电影）添加版本信息。
@@ -246,7 +246,7 @@ plex-edition-manager 共有 `为所有电影添加版本信息（all）`、`为�
 注：`为新增电影添加版本信息` 模式需要服务器的管理员账号订阅了 Plex Pass 才能使用。
 
 ## 配置说明
-在使用 plex-edition-manager 前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
+在使用 edition-manager-for-plex 前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
 ```
 [server]
 # Plex 服务器的地址，格式为 http://服务器 IP 地址:32400 或 http(s)://域名:端口号
@@ -262,14 +262,14 @@ language = zh
 # 指定需要写入的模块及其排序，格式为 模块1；模块2；模块3，可选模块包括剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分、时长
 order = 片源版本；动态范围
 ```
-由于 plex-edition-manager 只会对电影类型的资料库进行处理，所以在指定需要跳过的资料库时，指定需要跳过的电影类型的资料库即可。写入版本信息的模块没有数量限制，可以根据需要自行选配。
+由于 edition-manager-for-plex 只会对电影类型的资料库进行处理，所以在指定需要跳过的资料库时，指定需要跳过的电影类型的资料库即可。写入版本信息的模块没有数量限制，可以根据需要自行选配。
 
-在 `为新增电影添加版本信息` 模式下运行时，plex-edition-manager 会使用 Flask 创建一个 Web 服务器，通过监听 `8089` 端口来接收 Plex 服务器发送的 `library.new` 事件，从而获取新增项目的信息并对其进行处理。
+在 `为新增电影添加版本信息` 模式下运行时，edition-manager-for-plex 会使用 Flask 创建一个 Web 服务器，通过监听 `8089` 端口来接收 Plex 服务器发送的 `library.new` 事件，从而获取新增项目的信息并对其进行处理。
 
-假如你的 `8089` 端口已经被其他服务占用，你可能需要通过修改 `plex-edition-manager.py` 倒数第九行的 `port=8089`（通过 Python 脚本运行时）或者通过修改端口映射（通过 Docker 容器运行时）来更换监听端口。
+假如你的 `8089` 端口已经被其他服务占用，你可能需要通过修改 `edition-manager-for-plex.py` 倒数第九行的 `port=8089`（通过 Python 脚本运行时）或者通过修改端口映射（通过 Docker 容器运行时）来更换监听端口。
 
 ## 运行方式
-你可以通过 Docker 容器或者 Python 脚本来运行 plex-edition-manager，推荐使用 Docker 容器运行，具体使用方法可参考下文。
+你可以通过 Docker 容器或者 Python 脚本来运行 edition-manager-for-plex，推荐使用 Docker 容器运行，具体使用方法可参考下文。
 
 ### 通过 Docker 容器运行
 
@@ -277,104 +277,104 @@ order = 片源版本；动态范围
 - 安装了 Docker 和 Docker Compose。
 
 #### Docker Compose
-- plex-edition-manager（Plex Pass 订阅用户）
+- edition-manager-for-plex（Plex Pass 订阅用户）
   
    ```
    version: "2"
    services:
-     pem-all:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-all
-       command: python plex-edition-manager.py --all
+     emp-all:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-all
+       command: python edition-manager-for-plex.py --all
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /自定义目录/plex-edition-manager/config:/app/config
-     pem-new:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-new
-       command: python plex-edition-manager.py --new
+         - /自定义目录/edition-manager-for-plex/config:/app/config
+     emp-new:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-new
+       command: python edition-manager-for-plex.py --new
        ports:
          - 8089:8089
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /自定义目录/plex-edition-manager/config:/app/config
+         - /自定义目录/edition-manager-for-plex/config:/app/config
        restart: unless-stopped
    networks: {}
    ```
-- plex-edition-manager（非 Plex Pass 订阅用户）
+- edition-manager-for-plex（非 Plex Pass 订阅用户）
   
    ```
    version: "2"
    services:
-     pem-scheduler:
+     emp-scheduler:
        image: mcuadros/ofelia:latest
-       container_name: pem-scheduler
+       container_name: emp-scheduler
        depends_on:
-         - pem-all
+         - emp-all
        command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
        labels:
-         ofelia.job-run.pem-all.schedule: 0 30 22 * * *
-         ofelia.job-run.pem-all.container: pem-all
+         ofelia.job-run.emp-all.schedule: 0 30 22 * * *
+         ofelia.job-run.emp-all.container: emp-all
        environment:
          - TZ=Asia/Shanghai
        volumes:
          - /var/run/docker.sock:/var/run/docker.sock:ro
        restart: unless-stopped
-     pem-all:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-all
-       command: python plex-edition-manager.py --all
+     emp-all:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-all
+       command: python edition-manager-for-plex.py --all
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /自定义目录/plex-edition-manager/config:/app/config
+         - /自定义目录/edition-manager-for-plex/config:/app/config
    networks: {}
    ```
-- plex-edition-manager-reset
+- edition-manager-for-plex-reset
   
    ```
    version: "2"
    services:
-     pem-reset:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-reset
-       command: python plex-edition-manager.py --reset
+     emp-reset:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-reset
+       command: python edition-manager-for-plex.py --reset
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /自定义目录/plex-edition-manager/config:/app/config
+         - /自定义目录/edition-manager-for-plex/config:/app/config
    networks: {}
    ```
 
 #### 使用方法
-使用 plex-edition-manager 可以写入版本信息，也可以移除版本信息。由于 Docker 会在启动堆栈时自动启动堆栈内的所有容器，所以写入和移除的功能需要分开部署。请先部署 `plex-edition-manager` 用于写入版本信息，然后在有需要时部署 `plex-edition-manager-reset` 用于移除版本信息（部署后会立刻执行一次 `为所有电影重置版本信息`。你也可以使用 `docker-compose up --no-start` 来部署这个容器，这样部署后不会立刻运行，在有需要时再启动容器即可）。
+使用 edition-manager-for-plex 可以写入版本信息，也可以移除版本信息。由于 Docker 会在启动堆栈时自动启动堆栈内的所有容器，所以写入和移除的功能需要分开部署。请先部署 `edition-manager-for-plex` 用于写入版本信息，然后在有需要时部署 `edition-manager-for-plex-reset` 用于移除版本信息（部署后会立刻执行一次 `为所有电影重置版本信息`。你也可以使用 `docker-compose up --no-start` 来部署这个容器，这样部署后不会立刻运行，在有需要时再启动容器即可）。
 
-- plex-edition-manager
+- edition-manager-for-plex
 
   1. 在 Plex 服务器的设置选项中找到 `Webhooks`，点击 `添加 Webhook`，填写你的 Flask 服务器地址 `http://Docker 所在设备的 IP 地址:8089` 并 `保存修改`。（非 Plex Pass 订阅用户无需填写）
-  2. 下载仓库中的 `/compose/plex-edition-manager/compose.yaml` 文件（Plex Pass 订阅用户可删除 `pem-scheduler` 的部分，非 Plex Pass 订阅用户可删除 `pem-new` 的部分），将其保存在一个名为 `plex-edition-manager` 的文件夹内。
-  3. 用记事本或文本编辑打开 `compose.yaml`，将 `/自定义目录/plex-edition-manager/config` 替换为宿主机上的一个目录，这个目录将用于保存配置文件。（`pem-all` 与 `pem-new` 使用相同的目录即可）
+  2. 下载仓库中的 `/compose/edition-manager-for-plex/compose.yaml` 文件（Plex Pass 订阅用户可删除 `emp-scheduler` 的部分，非 Plex Pass 订阅用户可删除 `emp-new` 的部分），将其保存在一个名为 `edition-manager-for-plex` 的文件夹内。
+  3. 用记事本或文本编辑打开 `compose.yaml`，将 `/自定义目录/edition-manager-for-plex/config` 替换为宿主机上的一个目录，这个目录将用于保存配置文件。（`emp-all` 与 `emp-new` 使用相同的目录即可）
   4. 打开终端或命令行工具，使用 `cd` 命令切换到 `compose.yaml` 所在的目录。
-  5. 使用命令 `docker-compose up -d` 部署并启动 plex-edition-manager 堆栈。
-  6. 用记事本或文本编辑打开 `/自定义目录/plex-edition-manager/config/config.ini` 文件，填写你的 Plex 服务器地址（`address`）和 [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)（`token`），设置需要写入版本信息的模块及其排序（`order`），按照需要选填其他配置选项。
-  7. 重启 plex-edition-manager 堆栈即可正常运行。
+  5. 使用命令 `docker-compose up -d` 部署并启动 edition-manager-for-plex 堆栈。
+  6. 用记事本或文本编辑打开 `/自定义目录/edition-manager-for-plex/config/config.ini` 文件，填写你的 Plex 服务器地址（`address`）和 [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)（`token`），设置需要写入版本信息的模块及其排序（`order`），按照需要选填其他配置选项。
+  7. 重启 edition-manager-for-plex 堆栈即可正常运行。
 
-- plex-edition-manager-reset
+- edition-manager-for-plex-reset
 
-  1. 下载仓库中的 `/compose/plex-edition-manager-reset/compose.yaml` 文件，将其保存在一个名为 `plex-edition-manager-reset` 的文件夹内。
-  2. 用记事本或文本编辑打开 `compose.yaml`，将 `/自定义目录/plex-edition-manager/config` 替换为宿主机上的一个目录，这个目录将用于保存配置文件。（与 `pem-all` 和 `pem-new` 使用相同的目录即可）
+  1. 下载仓库中的 `/compose/edition-manager-for-plex-reset/compose.yaml` 文件，将其保存在一个名为 `edition-manager-for-plex-reset` 的文件夹内。
+  2. 用记事本或文本编辑打开 `compose.yaml`，将 `/自定义目录/edition-manager-for-plex/config` 替换为宿主机上的一个目录，这个目录将用于保存配置文件。（与 `emp-all` 和 `emp-new` 使用相同的目录即可）
   3. 打开终端或命令行工具，使用 `cd` 命令切换到 `compose.yaml` 所在的目录。
-  4. 使用命令 `docker-compose up -d` 部署并启动 plex-edition-manager-reset 堆栈。（若 `/自定义目录/plex-edition-manager/config/config.ini` 文件已经正确配置，堆栈会正常运行；若未配置，请先填写配置信息，然后重启堆栈，即可正常运行）
+  4. 使用命令 `docker-compose up -d` 部署并启动 edition-manager-for-plex-reset 堆栈。（若 `/自定义目录/edition-manager-for-plex/config/config.ini` 文件已经正确配置，堆栈会正常运行；若未配置，请先填写配置信息，然后重启堆栈，即可正常运行）
 
 #### 运行说明
-plex-edition-manager 共有 `pem-all`、`pem-new`、`pem-scheduler` 和 `pem-reset` 四个容器，分别用于处理不同的任务。启动堆栈后，这四个容器的运行状态也略有差异。
+edition-manager-for-plex 共有 `emp-all`、`emp-new`、`emp-scheduler` 和 `emp-reset` 四个容器，分别用于处理不同的任务。启动堆栈后，这四个容器的运行状态也略有差异。
 
-- 容器 `pem-all` 是用来运行 `为所有电影添加版本信息` 任务的，它会在启动后运行一次 `为所有电影添加版本信息` 任务，对设置范围内的所有电影进行处理（添加版本信息），并在终端或日志内显示资料库的信息和处理结果，处理完毕后会停止运行。你可以随时启动它来运行 `为所有电影添加版本信息` 任务，它将在每次处理完毕后停止运行。如果你配置了 `pem-scheduler`，`pem-all` 也会在每次到达你设置的任务时间时自动运行一次。
-- 容器 `pem-new` 是用来运行 `为新增电影添加版本信息` 任务的，它会在启动后创建一个 Flask 服务器来监听 Plex 服务器的事件，当 Plex 服务器上有新增电影时，它将自动对新增电影进行处理（添加版本信息），并在终端或日志内显示处理结果，处理完毕后会继续监听 Plex 服务器的事件，并在每次有新增电影时对其进行处理，然后继续监听。
-- 容器 `pem-scheduler` 是用来给 `为所有电影添加版本信息` 设置/触发计划任务的，它会在启动后创建一个定时运行 `pem-all` 的计划任务，默认设置为 `0 30 22 * * *`，表示每天晚上 10 点半（22:30）运行一次。你可以通过修改时间表达式来自定义运行频率，例如 `"@every 3h"` 表示每 3 小时运行一次，`"@every 30m"` 表示每 30 分钟运行一次等。它将在设置的任务时间启动 `pem-all` 容器，并在终端或日志内同步显示 `pem-all` 的日志信息，然后继续运行。
-- 容器 `pem-reset` 是用来运行 `为所有电影重置版本信息` 任务的，它会在启动后运行一次 `为所有电影重置版本信息` 任务，对设置范围内的所有电影进行处理（重置/移除版本信息），并在终端或日志内显示资料库的信息和处理结果，处理完毕后会停止运行。你可以随时启动它来运行 `为所有电影重置版本信息` 任务，它将在每次处理完毕后停止运行。
+- 容器 `emp-all` 是用来运行 `为所有电影添加版本信息` 任务的，它会在启动后运行一次 `为所有电影添加版本信息` 任务，对设置范围内的所有电影进行处理（添加版本信息），并在终端或日志内显示资料库的信息和处理结果，处理完毕后会停止运行。你可以随时启动它来运行 `为所有电影添加版本信息` 任务，它将在每次处理完毕后停止运行。如果你配置了 `emp-scheduler`，`emp-all` 也会在每次到达你设置的任务时间时自动运行一次。
+- 容器 `emp-new` 是用来运行 `为新增电影添加版本信息` 任务的，它会在启动后创建一个 Flask 服务器来监听 Plex 服务器的事件，当 Plex 服务器上有新增电影时，它将自动对新增电影进行处理（添加版本信息），并在终端或日志内显示处理结果，处理完毕后会继续监听 Plex 服务器的事件，并在每次有新增电影时对其进行处理，然后继续监听。
+- 容器 `emp-scheduler` 是用来给 `为所有电影添加版本信息` 设置/触发计划任务的，它会在启动后创建一个定时运行 `emp-all` 的计划任务，默认设置为 `0 30 22 * * *`，表示每天晚上 10 点半（22:30）运行一次。你可以通过修改时间表达式来自定义运行频率，例如 `"@every 3h"` 表示每 3 小时运行一次，`"@every 30m"` 表示每 30 分钟运行一次等。它将在设置的任务时间启动 `emp-all` 容器，并在终端或日志内同步显示 `emp-all` 的日志信息，然后继续运行。
+- 容器 `emp-reset` 是用来运行 `为所有电影重置版本信息` 任务的，它会在启动后运行一次 `为所有电影重置版本信息` 任务，对设置范围内的所有电影进行处理（重置/移除版本信息），并在终端或日志内显示资料库的信息和处理结果，处理完毕后会停止运行。你可以随时启动它来运行 `为所有电影重置版本信息` 任务，它将在每次处理完毕后停止运行。
 
 你可以根据需要选配这四个容器，若存在不需要的功能，直接在 Compose 中删除对应的部分再部署即可。
 
@@ -385,48 +385,48 @@ plex-edition-manager 共有 `pem-all`、`pem-new`、`pem-scheduler` 和 `pem-res
 - 使用命令 `pip3 install -r requirements.txt` 安装了必要的第三方库。
 
 #### 使用方法
-1. 通过 [Releases](https://github.com/x1ao4/plex-edition-manager/releases) 下载最新版本的压缩包并解压到本地目录中。
+1. 通过 [Releases](https://github.com/x1ao4/edition-manager-for-plex/releases) 下载最新版本的压缩包并解压到本地目录中。
 2. 用记事本或文本编辑打开目录中的 `/config/config.ini` 文件，填写你的 Plex 服务器地址（`address`）和 [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)（`token`），设置需要写入版本信息的模块及其排序（`order`），按照需要选填其他配置选项。
 3. 在 Plex 服务器的设置选项中找到 `Webhooks`，点击 `添加 Webhook`，填写你的 Flask 服务器地址 `http://脚本所在设备的 IP 地址:8089` 并 `保存修改`。（非 Plex Pass 订阅用户无需填写）
 4. 打开终端或命令行工具，使用 `cd` 命令切换到脚本所在的目录。
-5. 使用命令 `python3 plex-edition-manager.py --all` 可运行 `为所有电影添加版本信息` 任务，脚本将对设置范围内的所有电影进行处理（添加版本信息），并在控制台显示资料库的信息和处理结果，处理完毕后会结束运行。
-6. 使用命令 `python3 plex-edition-manager.py --new` 可运行 `为新增电影添加版本信息` 任务，脚本将创建一个 Flask 服务器来监听 Plex 服务器的事件，当 Plex 服务器上有新增电影时，脚本将自动对新增电影进行处理（添加版本信息），并在控制台显示处理结果，处理完毕后会继续监听 Plex 服务器的事件，并在每次有新增电影时对其进行处理，然后继续监听。
-7. 使用命令 `python3 plex-edition-manager.py --reset` 可运行 `为所有电影重置版本信息` 任务，脚本将对设置范围内的所有电影进行处理（重置/移除版本信息），并在控制台显示资料库的信息和处理结果，处理完毕后会结束运行。
+5. 使用命令 `python3 edition-manager-for-plex.py --all` 可运行 `为所有电影添加版本信息` 任务，脚本将对设置范围内的所有电影进行处理（添加版本信息），并在控制台显示资料库的信息和处理结果，处理完毕后会结束运行。
+6. 使用命令 `python3 edition-manager-for-plex.py --new` 可运行 `为新增电影添加版本信息` 任务，脚本将创建一个 Flask 服务器来监听 Plex 服务器的事件，当 Plex 服务器上有新增电影时，脚本将自动对新增电影进行处理（添加版本信息），并在控制台显示处理结果，处理完毕后会继续监听 Plex 服务器的事件，并在每次有新增电影时对其进行处理，然后继续监听。
+7. 使用命令 `python3 edition-manager-for-plex.py --reset` 可运行 `为所有电影重置版本信息` 任务，脚本将对设置范围内的所有电影进行处理（重置/移除版本信息），并在控制台显示资料库的信息和处理结果，处理完毕后会结束运行。
 
 #### 快速启动
 PC 用户也可以通过提供的快速启动脚本来执行任务：
 
-- 双击 `pem-all.bat (Win)` 或 `pem-all.command (Mac)` 脚本快速启动 `为所有电影添加版本信息` 任务。
-- 双击 `pem-new.bat (Win)` 或 `pem-new.command (Mac)` 脚本快速启动 `为新增电影添加版本信息` 任务。
-- 双击 `pem-reset.bat (Win)` 或 `pem-reset.command (Mac)` 脚本快速启动 `为所有电影重置版本信息` 任务。
+- 双击 `emp-all.bat (Win)` 或 `emp-all.command (Mac)` 脚本快速启动 `为所有电影添加版本信息` 任务。
+- 双击 `emp-new.bat (Win)` 或 `emp-new.command (Mac)` 脚本快速启动 `为新增电影添加版本信息` 任务。
+- 双击 `emp-reset.bat (Win)` 或 `emp-reset.command (Mac)` 脚本快速启动 `为所有电影重置版本信息` 任务。
 
 #### 自动运行
-为了便于使用，你也可以通过 crontab 或其他任务工具，为 plex-edition-manager 添加定时或开机任务，实现自动运行。
+为了便于使用，你也可以通过 crontab 或其他任务工具，为 edition-manager-for-plex 添加定时或开机任务，实现自动运行。
 
 - 为所有电影添加版本信息（Mac）
   
   1. 在终端使用命令 `crontab -e` 打开 crontab 文件。
-  2. 按 `i` 进入插入模式，添加行 `30 22 * * * /path/to/pem-all.command > /dev/null 2>&1`。（请把 `/path/to/pem-all.command` 替换为脚本的实际路径）
+  2. 按 `i` 进入插入模式，添加行 `30 22 * * * /path/to/emp-all.command > /dev/null 2>&1`。（请把 `/path/to/emp-all.command` 替换为脚本的实际路径）
   3. 按 `Esc` 退出插入模式，输入 `:wq`，按 `Enter` 保存更改并退出编辑器。
 
   这样就为 `为所有电影添加版本信息` 添加了一个每天晚上 10 点半（22:30）运行一次的定时任务。你可以通过修改时间表达式来自定义运行频率，例如 `0 */3 * * *` 表示每 3 小时运行一次，`*/30 * * * *` 表示每 30 分钟运行一次等。（脚本将在后台运行）
 
 - 为新增电影添加版本信息（Mac）
   
-  1. 用文本编辑打开 `pem-new.command` 文件，在第二行输入 `sleep 10` 保存更改并关闭文件。
+  1. 用文本编辑打开 `emp-new.command` 文件，在第二行输入 `sleep 10` 保存更改并关闭文件。
   2. 在终端使用命令 `crontab -e` 打开 crontab 文件。
-  3. 按 `i` 进入插入模式，添加行 `@reboot /path/to/pem-new.command`。（请把 `/path/to/pem-new.command` 替换为脚本的实际路径）
+  3. 按 `i` 进入插入模式，添加行 `@reboot /path/to/emp-new.command`。（请把 `/path/to/emp-new.command` 替换为脚本的实际路径）
   4. 按 `Esc` 退出插入模式，输入 `:wq`，按 `Enter` 保存更改并退出编辑器。
 
   这样我们就将 `为新增电影添加版本信息` 设置为了 Mac 的开机启动任务，任务会在开机 10 秒后运行，延迟 10 秒是为了保证 Plex 服务器比脚本先启动，否则脚本将无法连接到 Plex 服务器。（脚本将在后台运行）
 
 - 为所有电影添加版本信息（Nas）
   
-  通过自带的任务计划功能为 `为所有电影添加版本信息` 添加定时任务（计划的任务）。添加任务后在 `任务设置 - 运行命令 - 用户自定义脚本` 中输入 `python3 /path/to/plex-edition-manager.py --all`，然后按需要设置运行时间即可。（请把 `/path/to/plex-edition-manager.py` 替换为脚本的实际路径）
+  通过自带的任务计划功能为 `为所有电影添加版本信息` 添加定时任务（计划的任务）。添加任务后在 `任务设置 - 运行命令 - 用户自定义脚本` 中输入 `python3 /path/to/edition-manager-for-plex.py --all`，然后按需要设置运行时间即可。（请把 `/path/to/edition-manager-for-plex.py` 替换为脚本的实际路径）
   
 - 为新增电影添加版本信息（Nas）
   
-  通过自带的任务计划功能将 `为新增电影添加版本信息` 设置为开机启动任务（触发的任务）。添加任务后在 `任务设置 - 运行命令 - 用户自定义脚本` 中输入 `sleep 10 && python3 /path/to/plex-edition-manager.py --new`，这样脚本会在 Nas 启动 10 秒后再运行，延迟 10 秒是为了保证 Plex 服务器比脚本先启动，否则脚本将无法连接到 Plex 服务器。（请把 `/path/to/plex-edition-manager.py` 替换为脚本的实际路径）
+  通过自带的任务计划功能将 `为新增电影添加版本信息` 设置为开机启动任务（触发的任务）。添加任务后在 `任务设置 - 运行命令 - 用户自定义脚本` 中输入 `sleep 10 && python3 /path/to/edition-manager-for-plex.py --new`，这样脚本会在 Nas 启动 10 秒后再运行，延迟 10 秒是为了保证 Plex 服务器比脚本先启动，否则脚本将无法连接到 Plex 服务器。（请把 `/path/to/edition-manager-for-plex.py` 替换为脚本的实际路径）
 
 若设置为定时或开机任务后脚本运行失败，你可能需要将 command 脚本或用户自定义脚本中的 `python3` 替换为 `python3` 的实际路径。你可以在 Mac 终端或 Nas 的 SSH 内通过命令 `which python3` 找到 `python3` 的实际路径。
 
@@ -444,13 +444,13 @@ PC 用户也可以通过提供的快速启动脚本来执行任务：
 
 <img width="399" alt="赞赏" src="https://github.com/x1ao4/plex-mpv/assets/112841659/2eed25d0-d98f-4ffd-962e-aefec171b458">
 <br><br>
-<a href="#plex-edition-manager-zh">回到顶部</a>
+<a href="#edition-manager-for-plex-zh">回到顶部</a>
 <br>
 <br>
 <br>
 
-# plex-edition-manager <a name="plex-edition-manager-en"></a>
-<a href="#plex-edition-manager-zh">切换至中文</a>
+# Edition Manager for Plex <a name="edition-manager-for-plex-en"></a>
+<a href="#edition-manager-for-plex-zh">切换至中文</a>
 
 In Plex, there are two concepts of "version": "[Edition](https://support.plex.tv/articles/multiple-editions/)" and "[Version](https://support.plex.tv/articles/200381043-multi-version-movies/)", but their uses are quite different.
 
@@ -462,41 +462,41 @@ The Edition is displayed below the title, after the year, and also in the "More 
 
 For instance, currently, Plex's mobile and TV apps do not display Dolby Vision information. We can achieve this by writing the dynamic range into the Edition, allowing Dolby Vision information to be displayed on mobile and TV apps. This way, we can distinguish which movies are Dolby Vision versions. Additionally, Plex's library sorting currently only supports single sorting criteria. You cannot display the movie's resolution or bitrate information while sorting by title or audience rating. Similarly, we can display this extra information through Edition.
 
-Using plex-edition-manager, you can automatically retrieve information about movies and movie files and write the specified information into the Edition field, enriching the display functionality of movie information. With plex-edition-manager, you can write the movie's Cut Version, Release Version, Source Version, Resolution, Dynamic Range, Video Codec, Frame Rate, Audio Codec, Bitrate, Size, Country, Content Rating, Audience Rating, or Duration into the Edition field. It also supports custom modules and custom sorting.
+Using edition-manager-for-plex, you can automatically retrieve information about movies and movie files and write the specified information into the Edition field, enriching the display functionality of movie information. With edition-manager-for-plex, you can write the movie's Cut Version, Release Version, Source Version, Resolution, Dynamic Range, Video Codec, Frame Rate, Audio Codec, Bitrate, Size, Country, Content Rating, Audience Rating, or Duration into the Edition field. It also supports custom modules and custom sorting.
 
-You can use plex-edition-manager to add extra display information to your movies according to your needs and preferences. We provide features for writing and removing Editions, allowing you to try any combination freely and remove all Edition information with one click at any time. Although Edition is an exclusive feature for Plex Pass, plex-edition-manager allows you to use the Edition feature without a Pass subscription.
+You can use edition-manager-for-plex to add extra display information to your movies according to your needs and preferences. We provide features for writing and removing Editions, allowing you to try any combination freely and remove all Edition information with one click at any time. Although Edition is an exclusive feature for Plex Pass, edition-manager-for-plex allows you to use the Edition feature without a Pass subscription.
 
 ## Demo
 Configuration `order = Cut;Release` looks like this:
 
-![Cut Release](https://github.com/x1ao4/plex-edition-manager/assets/112841659/6b93b32d-3222-4c71-af56-cb9c6701eb93)
+![Cut Release](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/6b93b32d-3222-4c71-af56-cb9c6701eb93)
 
 Configuration `order = Rating;Country` looks like this:
 
-![Rating Country](https://github.com/x1ao4/plex-edition-manager/assets/112841659/3ad40f79-7120-482f-8316-5f6191e30d21)
+![Rating Country](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/3ad40f79-7120-482f-8316-5f6191e30d21)
 
 Configuration `order = FrameRate;Bitrate` looks like this:
 
-![FrameRate Bitrate](https://github.com/x1ao4/plex-edition-manager/assets/112841659/c81df176-99f5-47e0-a122-1818f067550a)
+![FrameRate Bitrate](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/c81df176-99f5-47e0-a122-1818f067550a)
 
 Configuration `order = Resolution;AudioCodec` looks like this:
 
-![Resolution AudioCodec](https://github.com/x1ao4/plex-edition-manager/assets/112841659/566f6ecc-97fb-4d53-8e12-db54542b9777)
+![Resolution AudioCodec](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/566f6ecc-97fb-4d53-8e12-db54542b9777)
 
 Configuration `order = Source;DynamicRange` looks like this:
 
-![Source DynamicRange](https://github.com/x1ao4/plex-edition-manager/assets/112841659/31a029d4-349a-432f-b5f5-b1ccbca4156b)
+![Source DynamicRange](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/31a029d4-349a-432f-b5f5-b1ccbca4156b)
 
 Configuration `order = ContentRating;Duration` looks like this:
 
-![ContentRating Duration](https://github.com/x1ao4/plex-edition-manager/assets/112841659/117af9e5-53b9-422d-8e10-2a1009de6ed4)
+![ContentRating Duration](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/117af9e5-53b9-422d-8e10-2a1009de6ed4)
 
 Configuration `order = Release;Source;Resolution;DynamicRange;VideoCodec;FrameRate;AudioCodec;Bitrate;Size;Country` looks like this:
 
-![Multi-module](https://github.com/x1ao4/plex-edition-manager/assets/112841659/c44882bc-70d3-49ae-9f03-7e4141421e49)
+![Multi-module](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/c44882bc-70d3-49ae-9f03-7e4141421e49)
 
 ## Modules
-Currently, plex-edition-manager offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
+Currently, edition-manager-for-plex offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
 
 ### Cut
 The Cut module currently supports 12 types of cut versions. This module prioritizes matching cut version information based on the movie's filename. If multiple video files exist, it will use the largest file by size for matching. If cut version information cannot be found through filename, it will attempt to match using embedded video titles within the file. If cut version information still cannot be found, it will not write cut version information. The supported cut versions are:
@@ -688,7 +688,7 @@ The Rating module retrieves the audience rating information of movies from the m
 The Duration module retrieves the duration information of video files from the media metadata of movies. If multiple video files exist, it retrieves the duration information from the largest file by size. If duration information cannot be found, it will not write any duration information (duration is measured in minutes).
 
 ## Features
-The plex-edition-manager operates in three modes: `add editions for all movies (all)`, `add editions for new movies (new)`, and `reset editions for all movies (reset)`:
+The edition-manager-for-plex operates in three modes: `add editions for all movies (all)`, `add editions for new movies (new)`, and `reset editions for all movies (reset)`:
 
 - **add editions for all movies**: Based on user configuration, this mode adds editions for all movies in libraries excluding those configured to be skipped. Movies with existing editions will be skipped.
 - **add editions for new movies**: This mode utilizes Webhooks to listen for server events in real-time, capturing metadata for newly added items. It then adds editions only for newly added movies (excluding those in libraries configured to be skipped).
@@ -697,7 +697,7 @@ The plex-edition-manager operates in three modes: `add editions for all movies (
 Note: The `add editions for new movies` mode requires the server administrator account to be subscribed to Plex Pass in order to use.
 
 ## Config
-Before using plex-edition-manager, please configure `/config/config.ini` according to the following example:
+Before using edition-manager-for-plex, please configure `/config/config.ini` according to the following example:
 ```
 [server]
 # Address of the Plex server, formatted as http://server IP address:32400 or http(s)://domain:port
@@ -713,14 +713,14 @@ language = en
 # Specify modules to write and their order, format should be Module1;Module2;Module3, optional modules include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, Duration
 order = Source;DynamicRange
 ```
-Since plex-edition-manager only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
+Since edition-manager-for-plex only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
 
-When running in `add editions for new movies` mode, plex-edition-manager creates a Flask web server that listens on port `8089` to receive `library.new` events sent by the Plex server. This allows it to capture metadata for newly added items and process them accordingly.
+When running in `add editions for new movies` mode, edition-manager-for-plex creates a Flask web server that listens on port `8089` to receive `library.new` events sent by the Plex server. This allows it to capture metadata for newly added items and process them accordingly.
 
-If port `8089` is already occupied by another service, you may need to modify the `port=8089` on the ninth last line of `plex-edition-manager.py` (when running via Python script) or adjust port mapping (when running via Docker container) to change the listening port.
+If port `8089` is already occupied by another service, you may need to modify the `port=8089` on the ninth last line of `edition-manager-for-plex.py` (when running via Python script) or adjust port mapping (when running via Docker container) to change the listening port.
 
 ## How to Run
-You can run plex-edition-manager using Docker containers or Python scripts. Docker containerization is recommended for its ease of use and scalability. Detailed instructions for each method are provided below.
+You can run edition-manager-for-plex using Docker containers or Python scripts. Docker containerization is recommended for its ease of use and scalability. Detailed instructions for each method are provided below.
 
 ### Running via Docker Container
 
@@ -728,104 +728,104 @@ You can run plex-edition-manager using Docker containers or Python scripts. Dock
 - Docker and Docker Compose installed.
 
 #### Docker Compose
-- plex-edition-manager (Plex Pass subscribers)
+- edition-manager-for-plex (Plex Pass subscribers)
   
    ```
    version: "2"
    services:
-     pem-all:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-all
-       command: python plex-edition-manager.py --all
+     emp-all:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-all
+       command: python edition-manager-for-plex.py --all
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /custom/directory/plex-edition-manager/config:/app/config
-     pem-new:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-new
-       command: python plex-edition-manager.py --new
+         - /custom/directory/edition-manager-for-plex/config:/app/config
+     emp-new:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-new
+       command: python edition-manager-for-plex.py --new
        ports:
          - 8089:8089
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /custom/directory/plex-edition-manager/config:/app/config
+         - /custom/directory/edition-manager-for-plex/config:/app/config
        restart: unless-stopped
    networks: {}
    ```
-- plex-edition-manager（Non-Plex Pass subscribers）
+- edition-manager-for-plex（Non-Plex Pass subscribers）
   
    ```
    version: "2"
    services:
-     pem-scheduler:
+     emp-scheduler:
        image: mcuadros/ofelia:latest
-       container_name: pem-scheduler
+       container_name: emp-scheduler
        depends_on:
-         - pem-all
+         - emp-all
        command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
        labels:
-         ofelia.job-run.pem-all.schedule: 0 30 22 * * *
-         ofelia.job-run.pem-all.container: pem-all
+         ofelia.job-run.emp-all.schedule: 0 30 22 * * *
+         ofelia.job-run.emp-all.container: emp-all
        environment:
          - TZ=Asia/Shanghai
        volumes:
          - /var/run/docker.sock:/var/run/docker.sock:ro
        restart: unless-stopped
-     pem-all:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-all
-       command: python plex-edition-manager.py --all
+     emp-all:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-all
+       command: python edition-manager-for-plex.py --all
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /custom/directory/plex-edition-manager/config:/app/config
+         - /custom/directory/edition-manager-for-plex/config:/app/config
    networks: {}
    ```
-- plex-edition-manager-reset
+- edition-manager-for-plex-reset
   
    ```
    version: "2"
    services:
-     pem-reset:
-       image: x1ao4/plex-edition-manager:latest
-       container_name: pem-reset
-       command: python plex-edition-manager.py --reset
+     emp-reset:
+       image: x1ao4/edition-manager-for-plex:latest
+       container_name: emp-reset
+       command: python edition-manager-for-plex.py --reset
        environment:
          - TZ=Asia/Shanghai
        volumes:
-         - /custom/directory/plex-edition-manager/config:/app/config
+         - /custom/directory/edition-manager-for-plex/config:/app/config
    networks: {}
    ```
 
 #### Usage
-With plex-edition-manager, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `plex-edition-manager` to write edition information, then deploy `plex-edition-manager-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
+With edition-manager-for-plex, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `edition-manager-for-plex` to write edition information, then deploy `edition-manager-for-plex-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
 
-- plex-edition-manager
+- edition-manager-for-plex
 
   1. In the Plex server settings, navigate to `Webhooks`, click on `Add Webhook`, and enter your Flask server address `http://Docker host IP address:8089` and `Save Changes`. (Non-Plex Pass subscribers do not need to fill this.)
-  2. Download the `/compose/plex-edition-manager/compose.yaml` file from the repository (Plex Pass subscribers should delete the `pem-scheduler` section; non-Plex Pass subscribers should delete the `pem-new` section) and save it in a folder named `plex-edition-manager`.
-  3. Open `compose.yaml` with a text editor and replace `/custom/directory/plex-edition-manager/config` with a directory on your host machine where configuration files will be stored. (Both `pem-all` and `pem-new` should use the same directory.)
+  2. Download the `/compose/edition-manager-for-plex/compose.yaml` file from the repository (Plex Pass subscribers should delete the `emp-scheduler` section; non-Plex Pass subscribers should delete the `emp-new` section) and save it in a folder named `edition-manager-for-plex`.
+  3. Open `compose.yaml` with a text editor and replace `/custom/directory/edition-manager-for-plex/config` with a directory on your host machine where configuration files will be stored. (Both `emp-all` and `emp-new` should use the same directory.)
   4. Open the terminal or command line tool, use the `cd` command to switch to the directory where `compose.yaml` is located.
-  5. Use the command `docker-compose up -d` to deploy and start the plex-edition-manager stack.
-  6. Open `/custom/directory/plex-edition-manager/config/config.ini` with a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
-  7. Restart the plex-edition-manager stack to start running properly.
+  5. Use the command `docker-compose up -d` to deploy and start the edition-manager-for-plex stack.
+  6. Open `/custom/directory/edition-manager-for-plex/config/config.ini` with a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
+  7. Restart the edition-manager-for-plex stack to start running properly.
 
-- plex-edition-manager-reset
+- edition-manager-for-plex-reset
 
-  1. Download the `/compose/plex-edition-manager-reset/compose.yaml` file from the repository and save it in a folder named `plex-edition-manager-reset`.
-  2. Open `compose.yaml` with a text editor and replace `/custom/directory/plex-edition-manager/config` with a directory on your host machine where configuration files will be stored. (Use the same directory as `pem-all` and `pem-new`.)
+  1. Download the `/compose/edition-manager-for-plex-reset/compose.yaml` file from the repository and save it in a folder named `edition-manager-for-plex-reset`.
+  2. Open `compose.yaml` with a text editor and replace `/custom/directory/edition-manager-for-plex/config` with a directory on your host machine where configuration files will be stored. (Use the same directory as `emp-all` and `emp-new`.)
   3. Open the terminal or command line tool, use the `cd` command to switch to the directory where `compose.yaml` is located.
-  4. Use the command `docker-compose up -d` to deploy and start the plex-edition-manager-reset stack. (If `/custom/directory/plex-edition-manager/config/config.ini` is correctly configured, the stack will operate properly; if not configured, fill in the configuration information first, then restart the stack for proper operation.)
+  4. Use the command `docker-compose up -d` to deploy and start the edition-manager-for-plex-reset stack. (If `/custom/directory/edition-manager-for-plex/config/config.ini` is correctly configured, the stack will operate properly; if not configured, fill in the configuration information first, then restart the stack for proper operation.)
 
 #### Instructions
-plex-edition-manager consists of four containers: `pem-all`, `pem-new`, `pem-scheduler`, and `pem-reset`, each designed to handle different tasks. Upon stack deployment, these containers will have slightly different running states.
+edition-manager-for-plex consists of four containers: `emp-all`, `emp-new`, `emp-scheduler`, and `emp-reset`, each designed to handle different tasks. Upon stack deployment, these containers will have slightly different running states.
 
-- The `pem-all` container is used for the `add editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (adding edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `add editions for all movies` task, and it will stop after each run. If you have configured `pem-scheduler`, `pem-all` will also run once automatically at each scheduled task time.
-- The `pem-new` container is used for the `add editions for new movies` task. After startup, it will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, it will automatically process the new movies (add edition information) and display the processing results in the terminal or logs. After processing, it will continue to listen for events from the Plex server and handle any new movies as they arrive, then resume listening.
-- The `pem-scheduler` container is used to set/trigger scheduled tasks for `add editions for all movies`. After startup, it will create a scheduled task to run `pem-all` at a default setting of `0 30 22 * * *`, which means it will run once daily at 10:30 PM. You can customize the running frequency by modifying the cron expression, such as `"@every 3h"` for every 3 hours or `"@every 30m"` for every 30 minutes. It will start the `pem-all` container at the scheduled task time and synchronize the `pem-all` log information in the terminal or logs, then continue running.
-- The `pem-reset` container is used for the `reset editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (resetting/removing edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `reset editions for all movies` task, and it will stop after each run.
+- The `emp-all` container is used for the `add editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (adding edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `add editions for all movies` task, and it will stop after each run. If you have configured `emp-scheduler`, `emp-all` will also run once automatically at each scheduled task time.
+- The `emp-new` container is used for the `add editions for new movies` task. After startup, it will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, it will automatically process the new movies (add edition information) and display the processing results in the terminal or logs. After processing, it will continue to listen for events from the Plex server and handle any new movies as they arrive, then resume listening.
+- The `emp-scheduler` container is used to set/trigger scheduled tasks for `add editions for all movies`. After startup, it will create a scheduled task to run `emp-all` at a default setting of `0 30 22 * * *`, which means it will run once daily at 10:30 PM. You can customize the running frequency by modifying the cron expression, such as `"@every 3h"` for every 3 hours or `"@every 30m"` for every 30 minutes. It will start the `emp-all` container at the scheduled task time and synchronize the `emp-all` log information in the terminal or logs, then continue running.
+- The `emp-reset` container is used for the `reset editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (resetting/removing edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `reset editions for all movies` task, and it will stop after each run.
 
 You can select and configure these four containers as needed. If certain functions are not required, simply delete the corresponding parts in the Compose file before deployment.
 
@@ -836,48 +836,48 @@ You can select and configure these four containers as needed. If certain functio
 - Necessary third-party libraries installed using the command `pip3 install -r requirements.txt`.
 
 #### Usage
-1. Download the latest release package from [Releases](https://github.com/x1ao4/plex-edition-manager/releases) and extract it to a local directory.
+1. Download the latest release package from [Releases](https://github.com/x1ao4/edition-manager-for-plex/releases) and extract it to a local directory.
 2. Open the `/config/config.ini` file in the directory using a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
 3. In the Plex server settings, navigate to `Webhooks`, click on `Add Webhook`, and enter your Flask server address `http://IP address of the device running the script:8089` and `Save Changes`. (Non-Plex Pass subscribers do not need to fill this.)
 4. Open a terminal or command line tool, use the `cd` command to switch to the directory where the script is located.
-5. Use the command `python3 plex-edition-manager.py --all` to run the `add editions for all movies` task. The script will process all movies within the configured scope (adding edition information) and display library information and processing results in the console. It will stop running after completing the task.
-6. Use the command `python3 plex-edition-manager.py --new` to run the `add editions for new movies` task. The script will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, the script will automatically process the new movies (adding edition information) and display the processing results in the console. After processing, it will continue to listen for events from the Plex server and handle new movies as they arrive, then resume listening.
-7. Use the command `python3 plex-edition-manager.py --reset` to run the `reset editions for all movies` task. The script will process all movies within the configured scope (resetting/removing edition information) and display library information and processing results in the console. It will stop running after completing the task.
+5. Use the command `python3 edition-manager-for-plex.py --all` to run the `add editions for all movies` task. The script will process all movies within the configured scope (adding edition information) and display library information and processing results in the console. It will stop running after completing the task.
+6. Use the command `python3 edition-manager-for-plex.py --new` to run the `add editions for new movies` task. The script will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, the script will automatically process the new movies (adding edition information) and display the processing results in the console. After processing, it will continue to listen for events from the Plex server and handle new movies as they arrive, then resume listening.
+7. Use the command `python3 edition-manager-for-plex.py --reset` to run the `reset editions for all movies` task. The script will process all movies within the configured scope (resetting/removing edition information) and display library information and processing results in the console. It will stop running after completing the task.
 
 #### Quick Start
 PC users can quickly start tasks by double-clicking the provided scripts:
 
-- To run the `add editions for all movies` task, double-click `pem-all.bat (Win)` or `pem-all.command (Mac)`.
-- To run the `add editions for new movies` task, double-click `pem-new.bat (Win)` or `pem-new.command (Mac)`.
-- To run the `reset editions for all movies` task, double-click `pem-reset.bat (Win)` or `pem-reset.command (Mac)`.
+- To run the `add editions for all movies` task, double-click `emp-all.bat (Win)` or `emp-all.command (Mac)`.
+- To run the `add editions for new movies` task, double-click `emp-new.bat (Win)` or `emp-new.command (Mac)`.
+- To run the `reset editions for all movies` task, double-click `emp-reset.bat (Win)` or `emp-reset.command (Mac)`.
 
 #### Automation
-For convenience, you can set up plex-edition-manager to run automatically using crontab or other task scheduling tools.
+For convenience, you can set up edition-manager-for-plex to run automatically using crontab or other task scheduling tools.
 
 - Add Editions for All Movies (Mac)
   
   1. Open the crontab file in the terminal with the command `crontab -e`.
-  2. Press `i` to enter insert mode and add the line `30 22 * * * /path/to/pem-all.command > /dev/null 2>&1`. (Replace `/path/to/pem-all.command` with the actual path to your script.)
+  2. Press `i` to enter insert mode and add the line `30 22 * * * /path/to/emp-all.command > /dev/null 2>&1`. (Replace `/path/to/emp-all.command` with the actual path to your script.)
   3. Press `Esc` to exit insert mode, type `:wq`, and press `Enter` to save changes and exit the editor.
 
   This sets up a scheduled task to run the `add editions for all movies` script every day at 10:30 PM. You can customize the frequency by modifying the time expression, such as `0 */3 * * *` to run every 3 hours or `*/30 * * * *` to run every 30 minutes. (The script will run in the background.)
 
 - Add Editions for New Movies (Mac)
   
-  1. Open the `pem-new.command` file with a text editor, add `sleep 10` on the second line, save the changes, and close the file.
+  1. Open the `emp-new.command` file with a text editor, add `sleep 10` on the second line, save the changes, and close the file.
   2. Open the crontab file in the terminal with the command `crontab -e`.
-  3. Press `i` to enter insert mode and add the line `@reboot /path/to/pem-new.command`. (Replace `/path/to/pem-new.command` with the actual path to your script.)
+  3. Press `i` to enter insert mode and add the line `@reboot /path/to/emp-new.command`. (Replace `/path/to/emp-new.command` with the actual path to your script.)
   4. Press `Esc` to exit insert mode, type `:wq`, and press `Enter` to save changes and exit the editor.
 
   This sets the `add editions for new movies` script to run on Mac startup, with a 10-second delay to ensure the Plex server starts before the script. (The script will run in the background.)
 
 - Add Editions for All Movies (NAS)
   
-  Use the built-in task scheduler to add a scheduled task for `add editions for all movies`. After adding the task, enter `python3 /path/to/plex-edition-manager.py --all` in the `Run Command - User-Defined Script` field, then set the desired run time. (Replace `/path/to/plex-edition-manager.py` with the actual path to your script.)
+  Use the built-in task scheduler to add a scheduled task for `add editions for all movies`. After adding the task, enter `python3 /path/to/edition-manager-for-plex.py --all` in the `Run Command - User-Defined Script` field, then set the desired run time. (Replace `/path/to/edition-manager-for-plex.py` with the actual path to your script.)
   
 - Add Editions for New Movies (NAS)
   
-  Use the built-in task scheduler to set `add editions for new movies` to run at startup. After adding the task, enter `sleep 10 && python3 /path/to/plex-edition-manager.py --new` in the `Run Command - User-Defined Script` field. This ensures the script runs 10 seconds after NAS startup, giving the Plex server time to start first. (Replace `/path/to/plex-edition-manager.py` with the actual path to your script.)
+  Use the built-in task scheduler to set `add editions for new movies` to run at startup. After adding the task, enter `sleep 10 && python3 /path/to/edition-manager-for-plex.py --new` in the `Run Command - User-Defined Script` field. This ensures the script runs 10 seconds after NAS startup, giving the Plex server time to start first. (Replace `/path/to/edition-manager-for-plex.py` with the actual path to your script.)
 
 If the scripts fail to run as scheduled or on startup, you may need to replace `python3` with the full path to the Python interpreter. You can find the actual path to `python3` using the `which python3` command in the Mac terminal or NAS SSH.
 
@@ -895,4 +895,4 @@ If you found this helpful, consider buying me a coffee or giving it a ⭐️. Th
 
 <img width="399" alt="Support" src="https://github.com/x1ao4/plex-mpv/assets/112841659/2eed25d0-d98f-4ffd-962e-aefec171b458">
 <br><br>
-<a href="#plex-edition-manager-en">Back to Top</a>
+<a href="#edition-manager-for-plex-en">Back to Top</a>

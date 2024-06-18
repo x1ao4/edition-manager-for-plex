@@ -16,4 +16,4 @@ RUN chmod +x /start.sh
 
 # 设置容器的启动命令
 ENTRYPOINT ["/start.sh"]
-CMD ["python", "plex-edition-manager.py"]
+CMD ["python", "edition-manager-for-plex.py"]

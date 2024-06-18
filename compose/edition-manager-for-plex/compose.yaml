@@ -1,0 +1,36 @@
+version: "2"
+services:
+  emp-scheduler:
+    image: mcuadros/ofelia:latest
+    container_name: emp-scheduler
+    depends_on:
+      - emp-all
+    command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
+    labels:
+      ofelia.job-run.emp-all.schedule: 0 30 22 * * *
+      ofelia.job-run.emp-all.container: emp-all
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+  emp-all:
+    image: x1ao4/edition-manager-for-plex:latest
+    container_name: emp-all
+    command: python edition-manager-for-plex.py --all
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/edition-manager-for-plex/config:/app/config
+  emp-new:
+    image: x1ao4/edition-manager-for-plex:latest
+    container_name: emp-new
+    command: python edition-manager-for-plex.py --new
+    ports:
+      - 8089:8089
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/edition-manager-for-plex/config:/app/config
+    restart: unless-stopped
+networks: {}

@@ -1,0 +1,11 @@
+version: "2"
+services:
+  emp-reset:
+    image: x1ao4/edition-manager-for-plex:latest
+    container_name: emp-reset
+    command: python edition-manager-for-plex.py --reset
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /自定义目录/edition-manager-for-plex/config:/app/config
+networks: {}

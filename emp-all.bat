@@ -4,6 +4,6 @@ set DIR=%~dp0
 
 cd /d %DIR%
 
-python3 plex-edition-manager.py --reset
+python3 edition-manager-for-plex.py --all
 
 pause
