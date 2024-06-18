@@ -11,9 +11,9 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 
 例如，目前的 Plex 移动端和电视端都不会显示杜比视界（DoVi）这个信息，我们可以通过把动态范围写入 Edition 来实现在移动端和电视端显示杜比视界信息，这样我们就可以区分哪些影片是杜比视界的版本了。再如，Plex 的资料库排序目前仅支持单一排序，你无法在使用标题、观众评分排序的同时显示电影的分辨率或码率等信息，同样我们也可以通过 Edition 来显示这些额外信息。
 
-使用 edition-manager-for-plex 可以自动获取电影和电影文件的信息，并将指定的信息写入 Edition 字段，从而丰富电影信息的展示功能。你可以通过 edition-manager-for-plex 将电影的剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分或时长写入电影的 Edition 字段，而且还支持自选模块和自定义排序。
+使用 Edition Manager for Plex（下文简称 EMP）可以自动获取电影和电影文件的信息，并将指定的信息写入 Edition 字段，从而丰富电影信息的展示功能。你可以通过 EMP 将电影的剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分或时长写入电影的 Edition 字段，而且还支持自选模块和自定义排序。
 
-你可以通过 edition-manager-for-plex 按照自己的需求和喜好为你的电影增加额外的展示信息，我们提供了写入 Edition 和移除 Edition 的功能，你可以随性尝试任何组合方式，也可以随时一键移除所有的 Edition 信息。虽然 Edition 是 Plex Pass 的专属功能，但是通过 edition-manager-for-plex，无需 Pass 订阅即可使用 Edition 功能。
+你可以通过 EMP 按照自己的需求和喜好为你的电影增加额外的展示信息，我们提供了写入 Edition 和移除 Edition 的功能，你可以随性尝试任何组合方式，也可以随时一键移除所有的 Edition 信息。虽然 Edition 是 Plex Pass 的专属功能，但是通过 EMP，无需 Pass 订阅即可使用 Edition 功能。
 
 ## 示例
 配置 `order = 剪辑版本；发行版本` 的效果：
@@ -45,7 +45,7 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 ![多模块](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/d58815eb-c943-4b47-8783-ab7a993122f5)
 
 ## 模块
-目前 edition-manager-for-plex 共有 14 个模块可供选择，分别是剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分和时长，你可以选择任意数量的模块，并按照任意顺序进行排序，若个别模块获取不到信息，其他模块也会正常显示，按照需要选配即可。
+目前 EMP 共有 14 个模块可供选择，分别是剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分和时长，你可以选择任意数量的模块，并按照任意顺序进行排序，若个别模块获取不到信息，其他模块也会正常显示，按照需要选配即可。
 
 ### 剪辑版本
 剪辑版本模块目前支持 12 种剪辑版本，该模块会优先使用电影的文件名匹配剪辑版本信息，若存在多个视频文件，则会使用文件大小最大的视频文件进行匹配，若找不到剪辑版本信息，则会通过文件内嵌的视频标题进行匹配，若依然找不到剪辑版本信息，则不会写入剪辑版本信息。支持的剪辑版本如下：
@@ -237,7 +237,7 @@ Version 的设计初衷是用来整合相同剪辑版本的多个文件版本的
 时长模块会从电影元数据的媒体信息中获取视频文件的时长信息，若存在多个视频文件，则会获取文件大小最大的视频文件的时长信息，若找不到时长信息，则不会写入时长信息（时长的单位为分钟）。
 
 ## 功能
-edition-manager-for-plex 共有 `为所有电影添加版本信息（all）`、`为新增电影添加版本信息（new）` 和 `为所有电影重置版本信息（reset）` 三种运行模式：
+EMP 共有 `为所有电影添加版本信息（all）`、`为新增电影添加版本信息（new）` 和 `为所有电影重置版本信息（reset）` 三种运行模式：
 
 - 为所有电影添加版本信息：根据用户配置，在排除掉需要跳过的资料库后为其余库中的所有电影添加版本信息，已经存在版本信息的电影会被跳过。
 - 为新增电影添加版本信息：通过 Webhooks 功能监听服务器事件，实时获取新增项目的元数据，根据用户配置，仅为新增电影（不含需要跳过的资料库中的新增电影）添加版本信息。
@@ -246,7 +246,7 @@ edition-manager-for-plex 共有 `为所有电影添加版本信息（all）`、`
 注：`为新增电影添加版本信息` 模式需要服务器的管理员账号订阅了 Plex Pass 才能使用。
 
 ## 配置说明
-在使用 edition-manager-for-plex 前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
+在使用 EMP 前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
 ```
 [server]
 # Plex 服务器的地址，格式为 http://服务器 IP 地址:32400 或 http(s)://域名:端口号
@@ -262,14 +262,14 @@ language = zh
 # 指定需要写入的模块及其排序，格式为 模块1；模块2；模块3，可选模块包括剪辑版本、发行版本、片源版本、分辨率、动态范围、视频编码、帧率、音频编码、比特率、大小、国家、内容分级、评分、时长
 order = 片源版本；动态范围
 ```
-由于 edition-manager-for-plex 只会对电影类型的资料库进行处理，所以在指定需要跳过的资料库时，指定需要跳过的电影类型的资料库即可。写入版本信息的模块没有数量限制，可以根据需要自行选配。
+由于 EMP 只会对电影类型的资料库进行处理，所以在指定需要跳过的资料库时，指定需要跳过的电影类型的资料库即可。写入版本信息的模块没有数量限制，可以根据需要自行选配。
 
-在 `为新增电影添加版本信息` 模式下运行时，edition-manager-for-plex 会使用 Flask 创建一个 Web 服务器，通过监听 `8089` 端口来接收 Plex 服务器发送的 `library.new` 事件，从而获取新增项目的信息并对其进行处理。
+在 `为新增电影添加版本信息` 模式下运行时，EMP 会使用 Flask 创建一个 Web 服务器，通过监听 `8089` 端口来接收 Plex 服务器发送的 `library.new` 事件，从而获取新增项目的信息并对其进行处理。
 
 假如你的 `8089` 端口已经被其他服务占用，你可能需要通过修改 `edition-manager-for-plex.py` 倒数第九行的 `port=8089`（通过 Python 脚本运行时）或者通过修改端口映射（通过 Docker 容器运行时）来更换监听端口。
 
 ## 运行方式
-你可以通过 Docker 容器或者 Python 脚本来运行 edition-manager-for-plex，推荐使用 Docker 容器运行，具体使用方法可参考下文。
+你可以通过 Docker 容器或者 Python 脚本来运行 EMP，推荐使用 Docker 容器运行，具体使用方法可参考下文。
 
 ### 通过 Docker 容器运行
 
@@ -349,7 +349,7 @@ order = 片源版本；动态范围
    ```
 
 #### 使用方法
-使用 edition-manager-for-plex 可以写入版本信息，也可以移除版本信息。由于 Docker 会在启动堆栈时自动启动堆栈内的所有容器，所以写入和移除的功能需要分开部署。请先部署 `edition-manager-for-plex` 用于写入版本信息，然后在有需要时部署 `edition-manager-for-plex-reset` 用于移除版本信息（部署后会立刻执行一次 `为所有电影重置版本信息`。你也可以使用 `docker-compose up --no-start` 来部署这个容器，这样部署后不会立刻运行，在有需要时再启动容器即可）。
+使用 EMP 可以写入版本信息，也可以移除版本信息。由于 Docker 会在启动堆栈时自动启动堆栈内的所有容器，所以写入和移除的功能需要分开部署。请先部署 `edition-manager-for-plex` 用于写入版本信息，然后在有需要时部署 `edition-manager-for-plex-reset` 用于移除版本信息（部署后会立刻执行一次 `为所有电影重置版本信息`。你也可以使用 `docker-compose up --no-start` 来部署这个容器，这样部署后不会立刻运行，在有需要时再启动容器即可）。
 
 - edition-manager-for-plex
 
@@ -369,7 +369,7 @@ order = 片源版本；动态范围
   4. 使用命令 `docker-compose up -d` 部署并启动 edition-manager-for-plex-reset 堆栈。（若 `/自定义目录/edition-manager-for-plex/config/config.ini` 文件已经正确配置，堆栈会正常运行；若未配置，请先填写配置信息，然后重启堆栈，即可正常运行）
 
 #### 运行说明
-edition-manager-for-plex 共有 `emp-all`、`emp-new`、`emp-scheduler` 和 `emp-reset` 四个容器，分别用于处理不同的任务。启动堆栈后，这四个容器的运行状态也略有差异。
+EMP 共有 `emp-all`、`emp-new`、`emp-scheduler` 和 `emp-reset` 四个容器，分别用于处理不同的任务。启动堆栈后，这四个容器的运行状态也略有差异。
 
 - 容器 `emp-all` 是用来运行 `为所有电影添加版本信息` 任务的，它会在启动后运行一次 `为所有电影添加版本信息` 任务，对设置范围内的所有电影进行处理（添加版本信息），并在终端或日志内显示资料库的信息和处理结果，处理完毕后会停止运行。你可以随时启动它来运行 `为所有电影添加版本信息` 任务，它将在每次处理完毕后停止运行。如果你配置了 `emp-scheduler`，`emp-all` 也会在每次到达你设置的任务时间时自动运行一次。
 - 容器 `emp-new` 是用来运行 `为新增电影添加版本信息` 任务的，它会在启动后创建一个 Flask 服务器来监听 Plex 服务器的事件，当 Plex 服务器上有新增电影时，它将自动对新增电影进行处理（添加版本信息），并在终端或日志内显示处理结果，处理完毕后会继续监听 Plex 服务器的事件，并在每次有新增电影时对其进行处理，然后继续监听。
@@ -401,7 +401,7 @@ PC 用户也可以通过提供的快速启动脚本来执行任务：
 - 双击 `emp-reset.bat (Win)` 或 `emp-reset.command (Mac)` 脚本快速启动 `为所有电影重置版本信息` 任务。
 
 #### 自动运行
-为了便于使用，你也可以通过 crontab 或其他任务工具，为 edition-manager-for-plex 添加定时或开机任务，实现自动运行。
+为了便于使用，你也可以通过 crontab 或其他任务工具，为 EMP 添加定时或开机任务，实现自动运行。
 
 - 为所有电影添加版本信息（Mac）
   
@@ -462,9 +462,9 @@ The Edition is displayed below the title, after the year, and also in the "More 
 
 For instance, currently, Plex's mobile and TV apps do not display Dolby Vision information. We can achieve this by writing the dynamic range into the Edition, allowing Dolby Vision information to be displayed on mobile and TV apps. This way, we can distinguish which movies are Dolby Vision versions. Additionally, Plex's library sorting currently only supports single sorting criteria. You cannot display the movie's resolution or bitrate information while sorting by title or audience rating. Similarly, we can display this extra information through Edition.
 
-Using edition-manager-for-plex, you can automatically retrieve information about movies and movie files and write the specified information into the Edition field, enriching the display functionality of movie information. With edition-manager-for-plex, you can write the movie's Cut Version, Release Version, Source Version, Resolution, Dynamic Range, Video Codec, Frame Rate, Audio Codec, Bitrate, Size, Country, Content Rating, Audience Rating, or Duration into the Edition field. It also supports custom modules and custom sorting.
+Using Edition Manager for Plex (hereinafter referred to as EMP), you can automatically retrieve information about movies and movie files and write the specified information into the Edition field, enriching the display functionality of movie information. With EMP, you can write the movie's Cut Version, Release Version, Source Version, Resolution, Dynamic Range, Video Codec, Frame Rate, Audio Codec, Bitrate, Size, Country, Content Rating, Audience Rating, or Duration into the Edition field. It also supports custom modules and custom sorting.
 
-You can use edition-manager-for-plex to add extra display information to your movies according to your needs and preferences. We provide features for writing and removing Editions, allowing you to try any combination freely and remove all Edition information with one click at any time. Although Edition is an exclusive feature for Plex Pass, edition-manager-for-plex allows you to use the Edition feature without a Pass subscription.
+You can use EMP to add extra display information to your movies according to your needs and preferences. We provide features for writing and removing Editions, allowing you to try any combination freely and remove all Edition information with one click at any time. Although Edition is an exclusive feature for Plex Pass, EMP allows you to use the Edition feature without a Pass subscription.
 
 ## Demo
 Configuration `order = Cut;Release` looks like this:
@@ -496,7 +496,7 @@ Configuration `order = Release;Source;Resolution;DynamicRange;VideoCodec;FrameRa
 ![Multi-module](https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/11ca5070-1757-4790-a896-5da97ce976a9)
 
 ## Modules
-Currently, edition-manager-for-plex offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
+Currently, EMP offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
 
 ### Cut
 The Cut module currently supports 12 types of cut versions. This module prioritizes matching cut version information based on the movie's filename. If multiple video files exist, it will use the largest file by size for matching. If cut version information cannot be found through filename, it will attempt to match using embedded video titles within the file. If cut version information still cannot be found, it will not write cut version information. The supported cut versions are:
@@ -688,7 +688,7 @@ The Rating module retrieves the audience rating information of movies from the m
 The Duration module retrieves the duration information of video files from the media metadata of movies. If multiple video files exist, it retrieves the duration information from the largest file by size. If duration information cannot be found, it will not write any duration information (duration is measured in minutes).
 
 ## Features
-The edition-manager-for-plex operates in three modes: `add editions for all movies (all)`, `add editions for new movies (new)`, and `reset editions for all movies (reset)`:
+The EMP operates in three modes: `add editions for all movies (all)`, `add editions for new movies (new)`, and `reset editions for all movies (reset)`:
 
 - **add editions for all movies**: Based on user configuration, this mode adds editions for all movies in libraries excluding those configured to be skipped. Movies with existing editions will be skipped.
 - **add editions for new movies**: This mode utilizes Webhooks to listen for server events in real-time, capturing metadata for newly added items. It then adds editions only for newly added movies (excluding those in libraries configured to be skipped).
@@ -697,7 +697,7 @@ The edition-manager-for-plex operates in three modes: `add editions for all movi
 Note: The `add editions for new movies` mode requires the server administrator account to be subscribed to Plex Pass in order to use.
 
 ## Config
-Before using edition-manager-for-plex, please configure `/config/config.ini` according to the following example:
+Before using EMP, please configure `/config/config.ini` according to the following example:
 ```
 [server]
 # Address of the Plex server, formatted as http://server IP address:32400 or http(s)://domain:port
@@ -713,14 +713,14 @@ language = en
 # Specify modules to write and their order, format should be Module1;Module2;Module3, optional modules include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, Duration
 order = Source;DynamicRange
 ```
-Since edition-manager-for-plex only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
+Since EMP only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
 
-When running in `add editions for new movies` mode, edition-manager-for-plex creates a Flask web server that listens on port `8089` to receive `library.new` events sent by the Plex server. This allows it to capture metadata for newly added items and process them accordingly.
+When running in `add editions for new movies` mode, EMP creates a Flask web server that listens on port `8089` to receive `library.new` events sent by the Plex server. This allows it to capture metadata for newly added items and process them accordingly.
 
 If port `8089` is already occupied by another service, you may need to modify the `port=8089` on the ninth last line of `edition-manager-for-plex.py` (when running via Python script) or adjust port mapping (when running via Docker container) to change the listening port.
 
 ## How to Run
-You can run edition-manager-for-plex using Docker containers or Python scripts. Docker containerization is recommended for its ease of use and scalability. Detailed instructions for each method are provided below.
+You can run EMP using Docker containers or Python scripts. Docker containerization is recommended for its ease of use and scalability. Detailed instructions for each method are provided below.
 
 ### Running via Docker Container
 
@@ -800,7 +800,7 @@ You can run edition-manager-for-plex using Docker containers or Python scripts. 
    ```
 
 #### Usage
-With edition-manager-for-plex, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `edition-manager-for-plex` to write edition information, then deploy `edition-manager-for-plex-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
+With EMP, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `edition-manager-for-plex` to write edition information, then deploy `edition-manager-for-plex-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
 
 - edition-manager-for-plex
 
@@ -820,7 +820,7 @@ With edition-manager-for-plex, you can write edition information as well as remo
   4. Use the command `docker-compose up -d` to deploy and start the edition-manager-for-plex-reset stack. (If `/custom/directory/edition-manager-for-plex/config/config.ini` is correctly configured, the stack will operate properly; if not configured, fill in the configuration information first, then restart the stack for proper operation.)
 
 #### Instructions
-edition-manager-for-plex consists of four containers: `emp-all`, `emp-new`, `emp-scheduler`, and `emp-reset`, each designed to handle different tasks. Upon stack deployment, these containers will have slightly different running states.
+EMP consists of four containers: `emp-all`, `emp-new`, `emp-scheduler`, and `emp-reset`, each designed to handle different tasks. Upon stack deployment, these containers will have slightly different running states.
 
 - The `emp-all` container is used for the `add editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (adding edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `add editions for all movies` task, and it will stop after each run. If you have configured `emp-scheduler`, `emp-all` will also run once automatically at each scheduled task time.
 - The `emp-new` container is used for the `add editions for new movies` task. After startup, it will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, it will automatically process the new movies (add edition information) and display the processing results in the terminal or logs. After processing, it will continue to listen for events from the Plex server and handle any new movies as they arrive, then resume listening.
@@ -852,7 +852,7 @@ PC users can quickly start tasks by double-clicking the provided scripts:
 - To run the `reset editions for all movies` task, double-click `emp-reset.bat (Win)` or `emp-reset.command (Mac)`.
 
 #### Automation
-For convenience, you can set up edition-manager-for-plex to run automatically using crontab or other task scheduling tools.
+For convenience, you can set up EMP to run automatically using crontab or other task scheduling tools.
 
 - Add Editions for All Movies (Mac)
   
