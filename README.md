@@ -499,7 +499,7 @@ Configuration `order = Release;Source;Resolution;DynamicRange;VideoCodec;FrameRa
 Currently, EMP offers a total of 14 modules for selection. These include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, and Duration. You can choose any number of modules and arrange them in any order. If certain modules cannot retrieve information, the others will still display correctly. Customize as needed.
 
 ### Cut
-The Cut module currently supports 12 types of cut versions. This module prioritizes matching cut version information based on the movie's filename. If multiple video files exist, it will use the largest file by size for matching. If cut version information cannot be found through filename, it will attempt to match using embedded video titles within the file. If cut version information still cannot be found, it will not write cut version information. The supported cut versions are:
+The Cut module currently supports 13 types of cut versions. This module prioritizes matching cut version information based on the movie's filename. If multiple video files exist, it will use the largest file by size for matching. If cut version information cannot be found through filename, it will attempt to match using embedded video titles within the file. If cut version information still cannot be found, it will not write cut version information. The supported cut versions are:
 
 - **Theatrical Cut**: This version is shown in theaters and is typically the most widely recognized version. It undergoes final review by producers and distributors for large-scale release.
 - **Director's Cut**: This version is considered by the director to best reflect their creative intent. It may include deleted scenes or have a different narrative structure, often released after the theatrical run.
@@ -513,6 +513,7 @@ The Cut module currently supports 12 types of cut versions. This module prioriti
 - **Rough Cut**: A preliminary version of the film before final editing, containing all filmed material. Rough cuts are typically for internal use, facilitating later modifications.
 - **Workprint Cut**: A near-final version used for internal review or test screenings. Workprints may not yet have finalized sound, music, and visual effects.
 - **Fan Edit**: A version re-edited by fans based on original film material, possibly featuring different storylines, deleted scenes, or added content to cater to specific fan preferences.
+- **Redux**: A version of the film that typically extends or revises the original by restoring scenes, altering edits, or adding content to offer a different viewing experience from the original release.
 
 ### Release
 The Release module currently supports 14 types of release versions. This module prioritizes matching release version information based on the movie's filename. If multiple video files exist, it will use the largest file by size for matching. If release version information cannot be found through filename, it will attempt to match using embedded video titles within the file. If multiple release versions are matched, they will be sequentially written into the release version information. If release version information still cannot be found, it will not write release version information. The supported release versions are:
