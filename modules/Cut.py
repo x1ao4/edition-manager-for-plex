@@ -15,7 +15,8 @@ def get_Cut(file_name, server, token, movie_id, language):
         r'\b(Home Video Cut)\b|家庭录像版': ('Home Video Cut', '家庭录像版'),
         r'\b(Rough Cut)\b|初剪版': ('Rough Cut', '初剪版'),
         r'\b(Workprint Cut|Workprint)\b|工作版': ('Workprint Cut', '工作版'),
-        r'\b(Fan Edit)\b|粉丝剪辑版|粉丝剪辑': ('Fan Edit', '粉丝剪辑版')
+        r'\b(Fan Edit)\b|粉丝剪辑版|粉丝剪辑': ('Fan Edit', '粉丝剪辑版'),
+        r'\b(Redux)\b': ('Redux', '')
     }
 
     # 遍历所有的剪辑版本，如果在文件名中找到对应的英文名称，就返回对应的中文或英文名称
