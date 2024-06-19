@@ -14,7 +14,7 @@ def get_Cut(file_name, server, token, movie_id, language):
         r'\b(International Cut)\b|国际版': ('International Cut', '国际版'),
         r'\b(Home Video Cut)\b|家庭录像版': ('Home Video Cut', '家庭录像版'),
         r'\b(Rough Cut)\b|初剪版': ('Rough Cut', '初剪版'),
-        r'\b(Workprint Cut)\b|工作版': ('Workprint Cut', '工作版'),
+        r'\b(Workprint Cut|Workprint)\b|工作版': ('Workprint Cut', '工作版'),
         r'\b(Fan Edit)\b|粉丝剪辑版|粉丝剪辑': ('Fan Edit', '粉丝剪辑版')
     }
 
