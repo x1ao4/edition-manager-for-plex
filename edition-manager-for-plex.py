@@ -20,6 +20,7 @@ from modules.VideoCodec import get_VideoCodec
 from modules.Resolution import get_Resolution
 from modules.DynamicRange import get_DynamicRange
 from modules.ContentRating import get_ContentRating
+from modules.Language import get_Language
 from pathlib import Path
 from flask import Flask, request
 from configparser import ConfigParser
@@ -42,8 +43,8 @@ def initialize_settings():
         token = config.get('server', 'token')
         skip_libraries = set(re.split(r'[；;]', config.get('server', 'skip_libraries'))) if config.has_option('server', 'skip_libraries') else set()
         language = config.get('server', 'language') if config.has_option('server', 'language') else 'en'
-        module_mapping = {'片源版本': 'Source', '分辨率': 'Resolution', '音频编码': 'AudioCodec', '视频编码': 'VideoCodec', '帧率': 'FrameRate', '比特率': 'Bitrate', '时长': 'Duration', '评分': 'Rating', '剪辑版本': 'Cut', '发行版本': 'Release', '动态范围': 'DynamicRange', '国家': 'Country', '内容分级': 'ContentRating', '大小': 'Size'}
-        modules = re.split(r'[；;]', config.get('modules', 'order')) if config.has_option('modules', 'order') else ['Source', 'Resolution', 'AudioCodec', 'VideoCodec', 'FrameRate', 'Bitrate', 'Duration', 'Rating', 'Cut', 'Release', 'DynamicRange', 'Country', 'ContentRating', 'Size']
+        module_mapping = {'语言': 'Language', '片源版本': 'Source', '分辨率': 'Resolution', '音频编码': 'AudioCodec', '视频编码': 'VideoCodec', '帧率': 'FrameRate', '比特率': 'Bitrate', '时长': 'Duration', '评分': 'Rating', '剪辑版本': 'Cut', '发行版本': 'Release', '动态范围': 'DynamicRange', '国家': 'Country', '内容分级': 'ContentRating', '大小': 'Size'}
+        modules = re.split(r'[；;]', config.get('modules', 'order')) if config.has_option('modules', 'order') else ['Source', 'Resolution', 'AudioCodec', 'VideoCodec', 'FrameRate', 'Bitrate', 'Duration', 'Rating', 'Cut', 'Release', 'DynamicRange', 'Country', 'ContentRating', 'Size', 'Language']
         modules = [module_mapping.get(module, module) for module in modules]
         try:
             headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
@@ -145,6 +146,10 @@ def process_movies(server, token, skip_libraries, language, modules):
                                 Size = get_Size(server, token, movie['ratingKey'])
                                 if Size:
                                     tags.append(Size)
+                            elif module == 'Language':
+                                Language = get_Language(server, token, movie['ratingKey'])
+                                if Language:
+                                    tags.append(Language)
                         update_movie(server, token, movie, tags, language)
 
 # 更新版本信息
@@ -238,6 +243,10 @@ def process_new_movie(server, token, metadata, language, modules):
                 Size = get_Size(server, token, metadata['ratingKey'])
                 if Size:
                     tags.append(Size)
+            elif module == 'Language':
+                Language = get_Language(server, token, metadata['ratingKey'])
+                if Language:
+                    tags.append(Language)
         update_movie(server, token, metadata, tags, language)
 
 # 重置电影的版本信息
