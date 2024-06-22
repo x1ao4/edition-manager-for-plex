@@ -441,6 +441,7 @@ PC 用户也可以通过提供的快速启动脚本来执行任务：
 - 版本信息将在添加后被锁定，若有修改需求，Plex Pass 订阅用户可以手动解锁版本信息，然后进行修改；非 Plex Pass 订阅用户不支持手动修改版本信息。若要为所有电影修改版本信息的模块或排序，请先重置版本信息，然后修改配置文件，再重新写入版本信息。
 - 修改配置文件后，需要重启容器，新的配置信息才会生效。
 - Windows 用户运行 Python 脚本后，若没有任何反应，请将运行命令或启动脚本中的 `python3` 替换为 `python` 再运行。
+- 如需使用 `为新增电影添加版本信息` 模式，请确保你在服务器的 `设置 - 网络` 中勾选了 `Webhooks` 选项。
 
 ## 赞赏
 如果你觉得这个项目对你有用，可以请我喝杯咖啡。如果你喜欢这个项目，可以给我一个⭐️。谢谢你的支持！
@@ -896,6 +897,7 @@ If the scripts fail to run as scheduled or on startup, you may need to replace `
 - The edition field will be locked after being added. If modifications are needed, Plex Pass subscribers can manually unlock the edition field and then modify it; non-Plex Pass subscribers do not support manual modification of the edition field. To modify the edition modules or their order for all movies, first reset the editions, then modify the configuration file, and finally rewrite the editions.
 - After modifying the configuration file, you need to restart the container for the new configuration to take effect.
 - If Windows users see no response after running the Python script, try replacing `python3` with `python` in the run command or start script.
+- To use the `add editions for new movies` mode, please ensure you have checked the `Webhooks` option in the server's `Settings - Network` section.
 
 ## Support
 If you found this helpful, consider buying me a coffee or giving it a ⭐️. Thanks for your support!
