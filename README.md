@@ -436,8 +436,8 @@ PC 用户也可以通过提供的快速启动脚本来执行任务：
 - 请确保你提供了正确的 Plex 服务器地址和正确的 X-Plex-Token。
 - 请确保你提供了正确的库名，并按要求进行了填写。
 - 请确保你按照要求设置了正确的语言和模块信息。
-- 如果脚本无法连接到 Plex 服务器，请检查你的网络连接，并确保服务器可以访问。
-- 请使用服务器管理员账号的 X-Plex-Token 运行脚本，以确保你拥有足够的权限进行操作。
+- 如果无法连接到 Plex 服务器，请检查你的网络连接，并确保服务器可以访问。如果你是通过 Docker 容器运行的，也可以尝试使用 `host` 模式重新部署容器运行。
+- 请使用服务器管理员账号的 X-Plex-Token，以确保你拥有足够的权限进行操作。
 - 版本信息将在添加后被锁定，若有修改需求，Plex Pass 订阅用户可以手动解锁版本信息，然后进行修改；非 Plex Pass 订阅用户不支持手动修改版本信息。若要为所有电影修改版本信息的模块或排序，请先重置版本信息，然后修改配置文件，再重新写入版本信息。
 - 修改配置文件后，需要重启容器，新的配置信息才会生效。
 - Windows 用户运行 Python 脚本后，若没有任何反应，请将运行命令或启动脚本中的 `python3` 替换为 `python` 再运行。
@@ -892,8 +892,8 @@ If the scripts fail to run as scheduled or on startup, you may need to replace `
 - Ensure you provide the correct Plex server address and the correct X-Plex-Token.
 - Ensure you provide the correct library names and fill them in as required.
 - Ensure you correctly set the language and module information as required.
-- If the script cannot connect to the Plex server, check your network connection and ensure the server is accessible.
-- Use the server administrator account's X-Plex-Token to run the script to ensure you have sufficient permissions for operations.
+- If the script or container cannot connect to the Plex server, please check your network connection and ensure the server is accessible. If you are running it through a Docker container, you can also try redeploying the container using the `host` mode.
+- Please use the X-Plex-Token of the server administrator account to ensure you have sufficient permissions to perform operations.
 - The edition field will be locked after being added. If modifications are needed, Plex Pass subscribers can manually unlock the edition field and then modify it; non-Plex Pass subscribers do not support manual modification of the edition field. To modify the edition modules or their order for all movies, first reset the editions, then modify the configuration file, and finally rewrite the editions.
 - After modifying the configuration file, you need to restart the container for the new configuration to take effect.
 - If Windows users see no response after running the Python script, try replacing `python3` with `python` in the run command or start script.
