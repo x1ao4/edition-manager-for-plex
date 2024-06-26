@@ -56,9 +56,9 @@ def initialize_settings():
                 logger.info(f"Successfully connected to server: {server_name}")
         except requests.exceptions.RequestException as err:
             if language == 'zh':
-                logger.error("服务器连接失败，请检查配置文件的设置是否有误。如需帮助，请访问 https://github.com/x1ao4/edition-manager-for-plex 查看使用说明。\n")
+                logger.error("服务器连接失败，请检查配置文件或网络的设置是否有误。如需帮助，请访问 https://github.com/x1ao4/edition-manager-for-plex 查看使用说明。\n")
             else:
-                logger.error("Server connection failed, please check the settings in the configuration file. For help, please visit https://github.com/x1ao4/edition-manager-for-plex for instructions. \n")
+                logger.error("Server connection failed, please check the settings in the configuration file or your network. For help, please visit https://github.com/x1ao4/edition-manager-for-plex for instructions. \n")
             time.sleep(10)
             raise SystemExit(err)
         return server, token, skip_libraries, language, modules
