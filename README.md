@@ -703,7 +703,7 @@ The EMP operates in three modes: `add editions for all movies (all)`, `add editi
 
 Note: The `add editions for new movies` mode requires the server administrator account to be subscribed to Plex Pass in order to use.
 
-## Config
+## Configuration
 Before using EMP, please configure `/config/config.ini` according to the following example:
 ```
 [server]
@@ -858,7 +858,7 @@ PC users can quickly start tasks by double-clicking the provided scripts:
 - To run the `add editions for new movies` task, double-click `emp-new.bat (Win)` or `emp-new.command (Mac)`.
 - To run the `reset editions for all movies` task, double-click `emp-reset.bat (Win)` or `emp-reset.command (Mac)`.
 
-#### Automation
+#### Auto-Run Setup
 For convenience, you can set up EMP to run automatically using crontab or other task scheduling tools.
 
 - Add Editions for All Movies (Mac)
