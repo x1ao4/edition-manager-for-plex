@@ -15,6 +15,11 @@ from modules.Resolution import get_Resolution
 from modules.DynamicRange import get_DynamicRange
 from modules.ContentRating import get_ContentRating
 from modules.Language import get_Language
+from modules.AudioChannels import get_AudioChannels
+from modules.Director import get_Director
+from modules.Genre import get_Genre
+from modules.SpecialFeatures import get_SpecialFeatures
+from modules.Studio import get_Studio
 from pathlib import Path
 from flask import Flask, request
 from configparser import ConfigParser
@@ -115,6 +120,26 @@ def process_single_movie(server, token, movie, modules, excluded_languages):
                 Language = get_Language(server, token, movie['ratingKey'], excluded_languages)
                 if Language:
                     tags.append(Language)
+            elif module == 'AudioChannels':
+                AudioChannels = get_AudioChannels(movie)
+                if AudioChannels:
+                    tags.append(AudioChannels)
+            elif module == 'Director':
+                Director = get_Director(movie)
+                if Director:
+                    tags.append(Director)
+            elif module == 'Genre':
+                Genre = get_Genre(movie)
+                if Genre:
+                    tags.append(Genre)
+            elif module == 'SpecialFeatures':
+                SpecialFeatures = get_SpecialFeatures(movie)
+                if SpecialFeatures:
+                    tags.append(SpecialFeatures)
+            elif module == 'Studio':
+                Studio = get_Studio(movie)
+                if Studio:
+                    tags.append(Studio)
         
         # Always call update_movie, even if tags is empty
         update_movie(server, token, movie, tags, modules)
