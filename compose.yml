@@ -4,9 +4,14 @@ services:
   edition-manager:
     build: .
     volumes:
-      - ./config:/app/config
+      - ./config.ini:/app/config.ini
       - ./metadata_backup:/app/metadata_backup
     environment:
-      - TZ=America/Los_Angeles  # Replace with your timezone, e.g., America/New_York
+      - TZ=${TZ:-America/Los_Angeles}
+      - RUN_MODE=${RUN_MODE:---all}
     restart: unless-stopped
-    command: python edition-manager.py --all  # Change this to the desired command
+    command: >
+      sh -c "if [ ! -f /app/config.ini ]; then
+              cp /app/config.default.ini /app/config.ini;
+             fi && 
+             python edition-manager.py ${RUN_MODE:---all}"
