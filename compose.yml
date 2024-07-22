@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  edition-manager:
+    build: .
+    volumes:
+      - ./config:/app/config
+      - ./metadata_backup:/app/metadata_backup
+    environment:
+      - TZ=America/Los_Angeles  # Replace with your timezone, e.g., America/New_York
+    restart: unless-stopped
+    command: python edition-manager.py --all  # Change this to the desired command
