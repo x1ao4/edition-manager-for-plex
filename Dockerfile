@@ -4,10 +4,12 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the main script, modules, and config file
+# Copy the main script and modules
 COPY edition-manager.py /app/
 COPY modules/ /app/modules/
-COPY config.ini /app/config.default.ini
+
+# Copy the config file
+COPY config/config.ini /app/config/config.default.ini
 
 # Copy the requirements file and install dependencies
 COPY requirements.txt /app/
