@@ -1,18 +1,32 @@
-# Edition Manager for Plex <a name="edition-manager-for-plex-en"></a>
+# Edition Manager
 
 In Plex, there are two concepts of "version": "[Edition](https://support.plex.tv/articles/multiple-editions/)" and "[Version](https://support.plex.tv/articles/200381043-multi-version-movies/)", but their uses are quite different.
+Edition Manager
+Edition Manager is a powerful tool designed to enhance your Plex media library by leveraging the Edition feature to display rich, customizable metadata for your movies.
+Key Features:
 
-The primary design of Edition is to differentiate between various cut versions of a film, such as Theatrical Cut, Director's Cut, Extended Cut, Unrated Cut, etc. If you have different cut versions of the same movie, you can label and distinguish them by editing the Edition in Plex. These different versions will be displayed as separate entries in the media library, each with its own viewing status, progress, and rating records, independent of each other.
+Automated Metadata Extraction: Automatically retrieves and writes specified information into the Edition field, including:
 
-The primary design of Version is to integrate multiple file versions of the same cut, mainly referring to different resolutions, encoding formats, or dynamic ranges, such as 1080P, 4K, SDR, HDR, etc. If you have different file versions of the same movie, they will automatically merge into a single entry in the media library after successful matching. You can choose which version to watch through "Play Version" during playback (if not selected, the default version will be played). They will share the same viewing status, progress, and rating records.
+Cut versions (Theatrical, Director's, Extended, Unrated, etc.)
+Release versions (Special Edition, Remastered, Anniversary Edition, etc.)
+Technical details (Resolution, Dynamic Range, Video/Audio Codec, Frame Rate, Bitrate, Size)
+Content information (Country, Content Rating, Audience Rating, Duration)
 
-The Edition is displayed below the title, after the year, and also in the "More Ways to Watch/Watch From These Locations" section, and it supports custom display names. In contrast, the Version is only shown on the movie's detail page and does not support custom display names. Since the actual use cases for marking different cut versions are not frequent and the Edition's display position is quite prominent, we can fully utilize this feature to mark other information about the movie beyond just different cuts.
 
-For instance, currently, Plex's mobile and TV apps do not display Dolby Vision information. We can achieve this by writing the dynamic range into the Edition, allowing Dolby Vision information to be displayed on mobile and TV apps. This way, we can distinguish which movies are Dolby Vision versions. Additionally, Plex's library sorting currently only supports single sorting criteria. You cannot display the movie's resolution or bitrate information while sorting by title or audience rating. Similarly, we can display this extra information through Edition.
+Enhanced Visibility: Display crucial information like Dolby Vision support on mobile and TV apps, where it's typically not shown.
+Flexible Sorting: Overcome Plex's single-criteria sorting limitation by incorporating multiple attributes into the Edition field.
+Custom Modules: Extend functionality with user-defined modules and custom sorting options.
+Non-Invasive Implementation: Achieve rich metadata display without modifying filenames.
+User-Friendly Operations:
 
-Using Edition Manager for Plex (hereinafter referred to as EMP), you can automatically retrieve information about movies and movie files and write the specified information into the Edition field, enriching the display functionality of movie information. With EMP, you can write the movie's Cut Version, Release Version, Source Version, Resolution, Dynamic Range, Video Codec, Frame Rate, Audio Codec, Bitrate, Size, Country, Content Rating, Audience Rating, or Duration into the Edition field. It also supports custom modules and custom sorting. All of this will be automated through EMP, without the need to edit or modify filenames.
+One-click addition of extra display information
+Easy removal of all Edition information
+Experiment with different combinations freely
 
-You can use EMP to add extra display information to your movies according to your needs and preferences. We provide features for writing and removing Editions, allowing you to try any combination freely and remove all Edition information with one click at any time. Although Edition is an exclusive feature for Plex Pass, EMP allows you to use the Edition feature without a Pass subscription.
+
+Plex Pass Alternative: Utilize Edition features without a Plex Pass subscription.
+
+Edition Manager transforms your Plex library, offering a more informative and customizable viewing experience. Whether you're distinguishing between cut versions, highlighting technical specifications, or simply enriching your movie displays, this tool provides the means to curate your library exactly as you envision it.
 
 ## Demo
 Configuration `order = Cut;Release` looks like this:
