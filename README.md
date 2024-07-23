@@ -20,7 +20,15 @@ Custom Modules: Extend functionality with user-defined modules and custom sortin
 Non-Invasive Implementation: Achieve rich metadata display without modifying filenames.
 User-Friendly Operations:
 
+
+Add all selected Edition information
+    
+    python edition-manager.py --all
+
 Easy removal of all Edition information
+    
+    python edition-manager.py --reset
+    
 Experiment with different combinations freely
 
 
