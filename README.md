@@ -20,7 +20,6 @@ Custom Modules: Extend functionality with user-defined modules and custom sortin
 Non-Invasive Implementation: Achieve rich metadata display without modifying filenames.
 User-Friendly Operations:
 
-One-click addition of extra display information
 Easy removal of all Edition information
 Experiment with different combinations freely
 
