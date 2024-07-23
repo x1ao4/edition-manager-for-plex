@@ -4,14 +4,14 @@ services:
   edition-manager:
     build: .
     volumes:
-      - ./config.ini:/app/config.ini
+      - ./config:/app/config
       - ./metadata_backup:/app/metadata_backup
     environment:
       - TZ=${TZ:-America/Los_Angeles}
       - RUN_MODE=${RUN_MODE:---all}
     restart: unless-stopped
     command: >
-      sh -c "if [ ! -f /app/config.ini ]; then
-              cp /app/config.default.ini /app/config.ini;
+      sh -c "if [ ! -f /app/config/config.ini ]; then
+              cp /app/config/config.default.ini /app/config/config.ini;
              fi && 
              python edition-manager.py ${RUN_MODE:---all}"
