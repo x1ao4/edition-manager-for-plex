@@ -3,13 +3,14 @@
 In Plex, there are two concepts of "version": "[Edition](https://support.plex.tv/articles/multiple-editions/)" and "[Version](https://support.plex.tv/articles/200381043-multi-version-movies/)", but their uses are quite different.
 Edition Manager
 Edition Manager is a powerful tool designed to enhance your Plex media library by leveraging the Edition feature to display rich, customizable metadata for your movies.
-Key Features:
+
+# Key Features:
 
 Automated Metadata Extraction: Automatically retrieves and writes specified information into the Edition field, including:
 
-Cut versions (Theatrical, Director's, Extended, Unrated, etc.)
+Cut versions (Theatrical, Directors, Extended, Unrated, etc.)
 Release versions (Special Edition, Remastered, Anniversary Edition, etc.)
-Technical details (Resolution, Dynamic Range, Video/Audio Codec, Frame Rate, Bitrate, Size)
+Technical details (Resolution, Dynamic Range)
 Content information (Country, Content Rating, Audience Rating, Duration)
 
 
