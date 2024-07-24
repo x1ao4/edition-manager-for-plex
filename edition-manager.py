@@ -8,18 +8,24 @@ import requests
 import argparse
 from modules.Cut import get_Cut
 from modules.Rating import get_Rating
-from modules.Country import get_Country
 from modules.Release import get_Release
+from modules.Country import get_Country
+from modules.Bitrate import get_Bitrate
 from modules.Duration import get_Duration
 from modules.Resolution import get_Resolution
 from modules.DynamicRange import get_DynamicRange
 from modules.ContentRating import get_ContentRating
-from modules.Language import get_Language
 from modules.AudioChannels import get_AudioChannels
-from modules.Director import get_Director
-from modules.Genre import get_Genre
 from modules.SpecialFeatures import get_SpecialFeatures
+from modules.AudioCodec import get_AudioCodec
+from modules.VideoCodec import get_VideoCodec
+from modules.FrameRate import get_FrameRate
+from modules.Language import get_Language
+from modules.Director import get_Director
 from modules.Studio import get_Studio
+from modules.Source import get_Source
+from modules.Genre import get_Genre
+from modules.Size import get_Size
 from pathlib import Path
 from flask import Flask, request
 from configparser import ConfigParser
@@ -41,7 +47,7 @@ def initialize_settings():
         server = config.get('server', 'address')
         token = config.get('server', 'token')
         skip_libraries = set(re.split(r'[；;]', config.get('server', 'skip_libraries'))) if config.has_option('server', 'skip_libraries') else set()
-        modules = re.split(r'[；;]', config.get('modules', 'order')) if config.has_option('modules', 'order') else ['Resolution', 'Duration', 'Rating', 'Cut', 'Release', 'DynamicRange', 'Country', 'ContentRating', 'Language']
+        modules = re.split(r'[；;]', config.get('modules', 'order')) if config.has_option('modules', 'order') else ['Resolution', 'Duration', 'Rating', 'Cut', 'Release', 'DynamicRange', 'Country', 'ContentRating', 'Language', 'AudioChannels', 'Director', 'Genre', 'SpecialFeatures', 'Studio', 'AudioCodec', 'Bitrate', 'FrameRate', 'Size', 'Source', 'VideoCodec']
         
         excluded_languages = set()
         if config.has_option('language', 'excluded_languages'):
@@ -140,6 +146,30 @@ def process_single_movie(server, token, movie, modules, excluded_languages):
                 Studio = get_Studio(movie)
                 if Studio:
                     tags.append(Studio)
+            elif module == 'AudioCodec':
+                AudioCodec = get_AudioCodec(server, token, movie['ratingKey'])
+                if AudioCodec:
+                    tags.append(AudioCodec)
+            elif module == 'Bitrate':
+                Bitrate = get_Bitrate(server, token, movie['ratingKey'])
+                if Bitrate:
+                    tags.append(Bitrate)
+            elif module == 'FrameRate':
+                FrameRate = get_FrameRate(movie)
+                if FrameRate:
+                    tags.append(FrameRate)
+            elif module == 'Size':
+                Size = get_Size(server, token, movie['ratingKey'])
+                if Size:
+                    tags.append(Size)
+            elif module == 'Source':
+                Source = get_Source(file_name, server, token, movie['ratingKey'])
+                if Source:
+                    tags.append(Source)
+            elif module == 'VideoCodec':
+                VideoCodec = get_VideoCodec(movie)
+                if VideoCodec:
+                    tags.append(VideoCodec)
         
         # Always call update_movie, even if tags is empty
         update_movie(server, token, movie, tags, modules)
@@ -234,7 +264,51 @@ def process_new_movie(server, token, metadata, modules, excluded_languages):
                 Language = get_Language(server, token, metadata['ratingKey'], excluded_languages)
                 if Language:
                     tags.append(Language)
-        update_movie(server, token, metadata, tags)
+            elif module == 'AudioChannels':
+                AudioChannels = get_AudioChannels(data['MediaContainer']['Metadata'][0])
+                if AudioChannels:
+                    tags.append(AudioChannels)
+            elif module == 'Director':
+                Director = get_Director(data['MediaContainer']['Metadata'][0])
+                if Director:
+                    tags.append(Director)
+            elif module == 'Genre':
+                Genre = get_Genre(data['MediaContainer']['Metadata'][0])
+                if Genre:
+                    tags.append(Genre)
+            elif module == 'SpecialFeatures':
+                SpecialFeatures = get_SpecialFeatures(data['MediaContainer']['Metadata'][0])
+                if SpecialFeatures:
+                    tags.append(SpecialFeatures)
+            elif module == 'Studio':
+                Studio = get_Studio(data['MediaContainer']['Metadata'][0])
+                if Studio:
+                    tags.append(Studio)
+            elif module == 'AudioCodec':
+                AudioCodec = get_AudioCodec(server, token, metadata['ratingKey'])
+                if AudioCodec:
+                    tags.append(AudioCodec)
+            elif module == 'Bitrate':
+                Bitrate = get_Bitrate(server, token, metadata['ratingKey'])
+                if Bitrate:
+                    tags.append(Bitrate)
+            elif module == 'FrameRate':
+                FrameRate = get_FrameRate(data['MediaContainer']['Metadata'][0])
+                if FrameRate:
+                    tags.append(FrameRate)
+            elif module == 'Size':
+                Size = get_Size(server, token, metadata['ratingKey'])
+                if Size:
+                    tags.append(Size)
+            elif module == 'Source':
+                Source = get_Source(file_name, server, token, metadata['ratingKey'])
+                if Source:
+                    tags.append(Source)
+            elif module == 'VideoCodec':
+                VideoCodec = get_VideoCodec(data['MediaContainer']['Metadata'][0])
+                if VideoCodec:
+                    tags.append(VideoCodec)
+        update_movie(server, token, metadata, tags, modules)
 
 # Reset movie edition information
 def reset_movie(server, token, movie):
