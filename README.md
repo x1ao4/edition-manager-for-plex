@@ -6,20 +6,14 @@ Edition Manager is a powerful tool designed to enhance your Plex media library b
 
 # Key Features:
 
-Automated Metadata Extraction: Automatically retrieves and writes specified information into the Edition field, including:
+1. Metadata Enhancement: Extracts and displays crucial information such as resolution, audio codecs, content ratings, and more.
+2. Customizable Modules: Allows users to choose which information to display and in what order.
+3. Backup and Restore: Provides options to backup and restore metadata, ensuring you can always revert changes.
+4. Plex Integration: Seamlessly integrates with your Plex server, updating movie information directly in the Plex interface.
 
-Cut versions (Theatrical, Directors, Extended, Unrated, etc.)
-Release versions (Special Edition, Remastered, Anniversary Edition, etc.)
-Technical details (Resolution, Dynamic Range)
-Content information (Country, Content Rating, Audience Rating, Duration)
+This tool is perfect for movie enthusiasts who want more detailed information about their digital collection at a glance, right within their Plex interface. It turns your Plex server into a comprehensive movie database, enhancing your browsing and selection experience.
 
-
-Enhanced Visibility: Display crucial information like Dolby Vision support on mobile and TV apps, where it's typically not shown.
-Flexible Sorting: Overcome Plex's single-criteria sorting limitation by incorporating multiple attributes into the Edition field.
-Custom Modules: Extend functionality with user-defined modules and custom sorting options.
-Non-Invasive Implementation: Achieve rich metadata display without modifying filenames.
-User-Friendly Operations:
-
+# User-Friendly Operations:
 
 Add all selected Edition information
     
