@@ -25,9 +25,21 @@ Add all selected Edition information
     
     python edition-manager.py --all
 
-Easy removal of all Edition information
+Add Edition information to new movies
+    
+    python edition-manager.py --new
+
+Remove all Edition information
     
     python edition-manager.py --reset
+
+Easy backup of current Edition information
+    
+    python edition-manager.py --backup
+
+Easy restore of Edition information that was backed up
+    
+    python edition-manager.py --restore
     
 Experiment with different combinations freely
 
@@ -225,245 +237,81 @@ The Size module retrieves the size information of video files from the media met
 The Country module retrieves the country (or region) information of movies from the movie metadata. If multiple countries exist, it sequentially writes the country information. If country information cannot be found, it will not write any country information.
 
 ### ContentRating
-The ContentRating module retrieves the content rating information of movies from the movie metadata. If content rating information cannot be found, it will not write any content rating information. Supported content ratings include but are not limited to:
+The ContentRating module extracts the content rating (e.g., G, PG, R) from a movie's metadata in Plex. It converts "Not Rated" to "NR" for brevity. This module displays the age-appropriate rating alongside other movie information, helping users make informed viewing choices.
+Common content ratings:
 
-#### Movie Ratings (MPAA)
-- **G**: General Audiences – Suitable for all ages. Contains nothing that would offend parents for viewing by children.
-- **PG**: Parental Guidance Suggested – Some material may not be suitable for children. Parents are urged to give "parental guidance."
-- **PG-13**: Parents Strongly Cautioned – Some material may be inappropriate for children under 13. Parents are urged to be cautious.
-- **R**: Restricted – Restricted to viewers over the age of 17 or accompanied by a parent or adult guardian. Contains strong language, violence, or sexual content.
-- **NC-17**: Adults Only – No one 17 and under admitted. Contains explicit sexual or violent content.
-- **NR**: Not Rated – The film has not been submitted for rating to the MPAA.
-- **Unrated**: A version not officially rated by organizations like the MPAA, may contain content not included in the original rating.
-
-#### TV Show Ratings (TV Parental Guidelines)
-- **TV-Y**: Television for All Children – Suitable for all children. Typically suitable for ages 2-6.
-- **TV-Y7**: Directed to Older Children – Suitable for children age 7 and above. May contain mild fantasy violence or infrequent use of mild language.
-- **TV-Y7-FV**: Directed to Older Children - Fantasy Violence – Suitable for children age 7 and above. Contains fantasy violence.
-- **TV-G**: General Audience – Suitable for all ages. Contains little or no violence, no strong language, and little or no sexual dialogue or situations.
-- **TV-PG**: Parental Guidance Suggested – Some material may not be suitable for children. Parents are urged to provide "parental guidance."
-- **TV-14**: Parents Strongly Cautioned – Contains some material that many parents would find unsuitable for children under 14.
-- **TV-MA**: Mature Audience Only – This program is specifically designed to be viewed by adults and may be unsuitable for children under 17. May contain crude indecent language, explicit sexual activity, or graphic violence.
-
-#### Other Rating Standards
-- **Approved**: Approved by the Motion Picture Association or other relevant authorities. Suitable for public viewing, specific content may vary depending on release era.
-- **18+**: Restricted to viewers 18 years and older. Contains adult-oriented content.
-- **AO**: Adults Only – Used for video game ratings, suitable only for adults.
+- **G**: General Audience - Suitable for all ages.
+- **PG**: Parental Guidance Suggested - May contain material unsuitable for young children.
+- **PG-13**: Parents Strongly Cautioned - May be inappropriate for children under 13.
+- **R**: Restricted - Under 17 requires accompanying adult.
+- **NC-17**: Adults Only - No one 17 and under admitted.
+- **NR**: Not Rated - Film hasn't been submitted for a rating or is an uncut version.
 
 Note: The above ratings are based on the U.S. rating system. Ratings systems in other regions may vary.
 
 ### Rating
-The Rating module retrieves the audience rating information of movies from the movie metadata (using the configured rating source from the database). If rating information cannot be found, it will not write any rating information (ratings will be converted to a 10-point scale).
+The Rating module fetches movie ratings from either IMDb (via TMDb API) or Rotten Tomatoes, based on user configuration. It adds the selected rating to the movie's edition information in Plex, providing users with quick access to critic or audience scores directly within their Plex interface.
 
 ### Duration
 The Duration module retrieves the duration information of video files from the media metadata of movies. If multiple video files exist, it retrieves the duration information from the largest file by size. If duration information cannot be found, it will not write any duration information (duration is measured in minutes).
-
-## Features
-The EMP operates in three modes: `add editions for all movies (all)`, `add editions for new movies (new)`, and `reset editions for all movies (reset)`:
-
-- **add editions for all movies**: Based on user configuration, this mode adds editions for all movies in libraries excluding those configured to be skipped. Movies with existing editions will be skipped.
-- **add editions for new movies**: This mode utilizes Webhooks to listen for server events in real-time, capturing metadata for newly added items. It then adds editions only for newly added movies (excluding those in libraries configured to be skipped).
-- **reset editions for all movies**: According to user settings, this mode resets (removes) editions for all movies in libraries excluding those configured to be skipped.
-
-Note: The `add editions for new movies` mode requires the server administrator account to be subscribed to Plex Pass in order to use.
 
 ## Config
 Before using EMP, please configure `/config/config.ini` according to the following example:
 ```
 [server]
-# Address of the Plex server, formatted as http://server IP address:32400 or http(s)://domain:port
-address = http://127.0.0.1:32400
-# Token of the Plex server for authentication
-token = xxxxxxxxxxxxxxxxxxxx
-# Specify libraries to skip, format should be LibraryName1;LibraryName2;LibraryName3, leave empty if no libraries need to be skipped
-skip_libraries = Cloud Movie;Concert
-# Language setting, 'zh' for Chinese, 'en' for English
-language = en
+# IP address and port of the Plex Server
+address = http://localhost:32400
+#Your Plex token
+token = your_plex_token
+skip_libraries = library_to_skip
 
 [modules]
-# Specify modules to write and their order, format should be Module1;Module2;Module3, optional modules include Cut, Release, Source, Resolution, DynamicRange, VideoCodec, FrameRate, AudioCodec, Bitrate, Size, Country, ContentRating, Rating, Duration
-order = Source;DynamicRange
+# Order of modules to apply, separated by semicolons
+# Available modules: Resolution, DynamicRange, Duration, Rating, Cut, Release, Country, ContentRating, Language
+order = Cut;Release;Language
+
+[language]
+# Languages to exclude from the Language module, separated by commas
+# Example: English, French, German
+excluded_languages = English
+skip_multiple_audio_tracks = yes
+
+[rating]
+# Source for movie ratings
+# Options: imdb, rotten_tomatoes
+source = rotten_tomatoes
+# Type of Rotten Tomatoes rating to use (only applicable if source is rotten_tomatoes)
+# Options: critic, audience
+rotten_tomatoes_type = audience
+# Needed for IMDB ratings to work
+tmdb_api_key = your_tmdb_api_key
 ```
-Since EMP only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
-
-When running in `add editions for new movies` mode, EMP creates a Flask web server that listens on port `8089` to receive `library.new` events sent by the Plex server. This allows it to capture metadata for newly added items and process them accordingly.
-
-If port `8089` is already occupied by another service, you may need to modify the `port=8089` on the ninth last line of `edition-manager-for-plex.py` (when running via Python script) or adjust port mapping (when running via Docker container) to change the listening port.
-
-## How to Run
-You can run EMP using Docker containers or Python scripts. Docker containerization is recommended for its ease of use and scalability. Detailed instructions for each method are provided below.
-
-### Running via Docker Container
-
-#### Requirements
-- Docker and Docker Compose installed.
-
-#### Docker Compose
-- edition-manager-for-plex (Plex Pass subscribers)
-  
-   ```
-   version: "2"
-   services:
-     emp-all:
-       image: x1ao4/edition-manager-for-plex:latest
-       container_name: emp-all
-       command: python edition-manager-for-plex.py --all
-       environment:
-         - TZ=Asia/Shanghai
-       volumes:
-         - /custom/directory/edition-manager-for-plex/config:/app/config
-     emp-new:
-       image: x1ao4/edition-manager-for-plex:latest
-       container_name: emp-new
-       command: python edition-manager-for-plex.py --new
-       ports:
-         - 8089:8089
-       environment:
-         - TZ=Asia/Shanghai
-       volumes:
-         - /custom/directory/edition-manager-for-plex/config:/app/config
-       restart: unless-stopped
-   networks: {}
-   ```
-- edition-manager-for-plex（Non-Plex Pass subscribers）
-  
-   ```
-   version: "2"
-   services:
-     emp-scheduler:
-       image: mcuadros/ofelia:latest
-       container_name: emp-scheduler
-       depends_on:
-         - emp-all
-       command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
-       labels:
-         ofelia.job-run.emp-all.schedule: 0 30 22 * * *
-         ofelia.job-run.emp-all.container: emp-all
-       environment:
-         - TZ=Asia/Shanghai
-       volumes:
-         - /var/run/docker.sock:/var/run/docker.sock:ro
-       restart: unless-stopped
-     emp-all:
-       image: x1ao4/edition-manager-for-plex:latest
-       container_name: emp-all
-       command: python edition-manager-for-plex.py --all
-       environment:
-         - TZ=Asia/Shanghai
-       volumes:
-         - /custom/directory/edition-manager-for-plex/config:/app/config
-   networks: {}
-   ```
-- edition-manager-for-plex-reset
-  
-   ```
-   version: "2"
-   services:
-     emp-reset:
-       image: x1ao4/edition-manager-for-plex:latest
-       container_name: emp-reset
-       command: python edition-manager-for-plex.py --reset
-       environment:
-         - TZ=Asia/Shanghai
-       volumes:
-         - /custom/directory/edition-manager-for-plex/config:/app/config
-   networks: {}
-   ```
-
-#### Usage
-With EMP, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `edition-manager-for-plex` to write edition information, then deploy `edition-manager-for-plex-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
-
-- edition-manager-for-plex
-
-  1. In the Plex server settings, navigate to `Webhooks`, click on `Add Webhook`, and enter your Flask server address `http://Docker host IP address:8089` and `Save Changes`. (Non-Plex Pass subscribers do not need to fill this.)
-  2. Download the `/compose/edition-manager-for-plex/compose.yaml` file from the repository (Plex Pass subscribers should delete the `emp-scheduler` section; non-Plex Pass subscribers should delete the `emp-new` section) and save it in a folder named `edition-manager-for-plex`.
-  3. Open `compose.yaml` with a text editor and replace `/custom/directory/edition-manager-for-plex/config` with a directory on your host machine where configuration files will be stored. (Both `emp-all` and `emp-new` should use the same directory.)
-  4. Open the terminal or command line tool, use the `cd` command to switch to the directory where `compose.yaml` is located.
-  5. Use the command `docker-compose up -d` to deploy and start the edition-manager-for-plex stack.
-  6. Open `/custom/directory/edition-manager-for-plex/config/config.ini` with a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
-  7. Restart the edition-manager-for-plex stack to start running properly.
-
-- edition-manager-for-plex-reset
-
-  1. Download the `/compose/edition-manager-for-plex-reset/compose.yaml` file from the repository and save it in a folder named `edition-manager-for-plex-reset`.
-  2. Open `compose.yaml` with a text editor and replace `/custom/directory/edition-manager-for-plex/config` with a directory on your host machine where configuration files will be stored. (Use the same directory as `emp-all` and `emp-new`.)
-  3. Open the terminal or command line tool, use the `cd` command to switch to the directory where `compose.yaml` is located.
-  4. Use the command `docker-compose up -d` to deploy and start the edition-manager-for-plex-reset stack. (If `/custom/directory/edition-manager-for-plex/config/config.ini` is correctly configured, the stack will operate properly; if not configured, fill in the configuration information first, then restart the stack for proper operation.)
-
-#### Instructions
-EMP consists of four containers: `emp-all`, `emp-new`, `emp-scheduler`, and `emp-reset`, each designed to handle different tasks. Upon stack deployment, these containers will have slightly different running states.
-
-- The `emp-all` container is used for the `add editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (adding edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `add editions for all movies` task, and it will stop after each run. If you have configured `emp-scheduler`, `emp-all` will also run once automatically at each scheduled task time.
-- The `emp-new` container is used for the `add editions for new movies` task. After startup, it will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, it will automatically process the new movies (add edition information) and display the processing results in the terminal or logs. After processing, it will continue to listen for events from the Plex server and handle any new movies as they arrive, then resume listening.
-- The `emp-scheduler` container is used to set/trigger scheduled tasks for `add editions for all movies`. After startup, it will create a scheduled task to run `emp-all` at a default setting of `0 30 22 * * *`, which means it will run once daily at 10:30 PM. You can customize the running frequency by modifying the cron expression, such as `"@every 3h"` for every 3 hours or `"@every 30m"` for every 30 minutes. It will start the `emp-all` container at the scheduled task time and synchronize the `emp-all` log information in the terminal or logs, then continue running.
-- The `emp-reset` container is used for the `reset editions for all movies` task. It runs this task once after startup, processing all movies within the set scope (resetting/removing edition information), and displays the library information and processing results in the terminal or logs. It will stop running after completing the task. You can start it at any time to run the `reset editions for all movies` task, and it will stop after each run.
-
-You can select and configure these four containers as needed. If certain functions are not required, simply delete the corresponding parts in the Compose file before deployment.
+Since Edition Manager only processes libraries of movie type, specify libraries of movie type to skip when needed. There is no limit to the number of modules for writing editions, so you can choose and configure them according to your needs.
 
 ### Running via Python Script
 
 #### Requirements
 - Python 3.0 or higher installed.
-- Necessary third-party libraries installed using the command `pip3 install -r requirements.txt`.
+- Necessary third-party libraries installed using the command `pip install -r requirements.txt`.
 
 #### Usage
-1. Download the latest release package from [Releases](https://github.com/x1ao4/edition-manager-for-plex/releases) and extract it to a local directory.
+1. Download the latest release package from [Releases](https://github.com/Entree3k/edition-manager/releases) and extract it to a local directory.
 2. Open the `/config/config.ini` file in the directory using a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
-3. In the Plex server settings, navigate to `Webhooks`, click on `Add Webhook`, and enter your Flask server address `http://IP address of the device running the script:8089` and `Save Changes`. (Non-Plex Pass subscribers do not need to fill this.)
-4. Open a terminal or command line tool, use the `cd` command to switch to the directory where the script is located.
-5. Use the command `python3 edition-manager-for-plex.py --all` to run the `add editions for all movies` task. The script will process all movies within the configured scope (adding edition information) and display library information and processing results in the console. It will stop running after completing the task.
-6. Use the command `python3 edition-manager-for-plex.py --new` to run the `add editions for new movies` task. The script will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, the script will automatically process the new movies (adding edition information) and display the processing results in the console. After processing, it will continue to listen for events from the Plex server and handle new movies as they arrive, then resume listening.
-7. Use the command `python3 edition-manager-for-plex.py --reset` to run the `reset editions for all movies` task. The script will process all movies within the configured scope (resetting/removing edition information) and display library information and processing results in the console. It will stop running after completing the task.
+3. Open a terminal or command line tool, use the `cd` command to switch to the directory where the script is located.
+4. Use the command `python edition-manager.py --backup` to run the `Backup Plex Edition Metadata`
+5. Use the command `python edition-manager.py --restore` to run the `Restore backed up Plex Edition Metadata`
+6. Use the command `python edition-manager.py --all` to run the `add editions for all movies` task. The script will process all movies within the configured scope (adding edition information) and display library information and processing results in the console. It will stop running after completing the task.
+7. Use the command `python edition-manager.py --new` to run the `add editions for new movies` task. The script will create a Flask server to listen for events from the Plex server. When there are new movies on the Plex server, the script will automatically process the new movies (adding edition information) and display the processing results in the console. After processing, it will continue to listen for events from the Plex server and handle new movies as they arrive, then resume listening.
+8. Use the command `python edition-manager.py --reset` to run the `reset editions for all movies` task. The script will process all movies within the configured scope (resetting/removing edition information) and display library information and processing results in the console. It will stop running after completing the task.
 
 #### Quick Start
 PC users can quickly start tasks by double-clicking the provided scripts:
 
-- To run the `add editions for all movies` task, double-click `emp-all.bat (Win)` or `emp-all.command (Mac)`.
-- To run the `add editions for new movies` task, double-click `emp-new.bat (Win)` or `emp-new.command (Mac)`.
-- To run the `reset editions for all movies` task, double-click `emp-reset.bat (Win)` or `emp-reset.command (Mac)`.
-
-#### Automation
-For convenience, you can set up EMP to run automatically using crontab or other task scheduling tools.
-
-- Add Editions for All Movies (Mac)
-  
-  1. Open the crontab file in the terminal with the command `crontab -e`.
-  2. Press `i` to enter insert mode and add the line `30 22 * * * /path/to/emp-all.command > /dev/null 2>&1`. (Replace `/path/to/emp-all.command` with the actual path to your script.)
-  3. Press `Esc` to exit insert mode, type `:wq`, and press `Enter` to save changes and exit the editor.
-
-  This sets up a scheduled task to run the `add editions for all movies` script every day at 10:30 PM. You can customize the frequency by modifying the time expression, such as `0 */3 * * *` to run every 3 hours or `*/30 * * * *` to run every 30 minutes. (The script will run in the background.)
-
-- Add Editions for New Movies (Mac)
-  
-  1. Open the `emp-new.command` file with a text editor, add `sleep 10` on the second line, save the changes, and close the file.
-  2. Open the crontab file in the terminal with the command `crontab -e`.
-  3. Press `i` to enter insert mode and add the line `@reboot /path/to/emp-new.command`. (Replace `/path/to/emp-new.command` with the actual path to your script.)
-  4. Press `Esc` to exit insert mode, type `:wq`, and press `Enter` to save changes and exit the editor.
-
-  This sets the `add editions for new movies` script to run on Mac startup, with a 10-second delay to ensure the Plex server starts before the script. (The script will run in the background.)
-
-- Add Editions for All Movies (NAS)
-  
-  Use the built-in task scheduler to add a scheduled task for `add editions for all movies`. After adding the task, enter `python3 /path/to/edition-manager-for-plex.py --all` in the `Run Command - User-Defined Script` field, then set the desired run time. (Replace `/path/to/edition-manager-for-plex.py` with the actual path to your script.)
-  
-- Add Editions for New Movies (NAS)
-  
-  Use the built-in task scheduler to set `add editions for new movies` to run at startup. After adding the task, enter `sleep 10 && python3 /path/to/edition-manager-for-plex.py --new` in the `Run Command - User-Defined Script` field. This ensures the script runs 10 seconds after NAS startup, giving the Plex server time to start first. (Replace `/path/to/edition-manager-for-plex.py` with the actual path to your script.)
-
-If the scripts fail to run as scheduled or on startup, you may need to replace `python3` with the full path to the Python interpreter. You can find the actual path to `python3` using the `which python3` command in the Mac terminal or NAS SSH.
-
-## Notes
-- Ensure you provide the correct Plex server address and the correct X-Plex-Token.
-- Ensure you provide the correct library names and fill them in as required.
-- Ensure you correctly set the language and module information as required.
-- If the script cannot connect to the Plex server, check your network connection and ensure the server is accessible.
-- Use the server administrator account's X-Plex-Token to run the script to ensure you have sufficient permissions for operations.
-- The edition field will be locked after being added. If modifications are needed, Plex Pass subscribers can manually unlock the edition field and then modify it; non-Plex Pass subscribers do not support manual modification of the edition field. To modify the edition modules or their order for all movies, first reset the editions, then modify the configuration file, and finally rewrite the editions.
-- If Windows users see no response after running the Python script, try replacing `python3` with `python` in the run command or start script.
+- To run the `add editions for all movies` task, double-click `run_all.bat (Win)`.
+- To run the `add editions for new movies` task, double-click `run_new.bat (Win)`.
+- To run the `reset editions for all movies` task, double-click `run_reset.bat (Win)`.
+- To run the `backup editions for all movies` task, double-click `run_backup.bat (Win)`.
+- To run the `restore editions for all movies` task, double-click `run_restore.bat (Win)`.
 
 ## Support
-If you found this helpful, consider buying me a coffee or giving it a ⭐️. Thanks for your support!
-
-<img width="399" alt="Support" src="https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/be5aa968-3dc3-4dcc-91cc-506354000a6a">
-<br><br>
-<a href="#edition-manager-for-plex-en">Back to Top</a>
+If you found this helpful, consider giving it a ⭐️. Thanks for your support!
