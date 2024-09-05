@@ -19,7 +19,7 @@ Add all selected Edition information
     
     python edition-manager.py --all
 
-Add Edition information to new movies
+Add Edition information to new movies. This mode utilizes Webhooks to listen for server events in real-time, capturing metadata for newly added items. It then adds editions only for newly added movies (excluding those in libraries configured to be skipped).
     
     python edition-manager.py --new
 
