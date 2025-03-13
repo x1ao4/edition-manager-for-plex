@@ -309,103 +309,6 @@ def update_movie(server, token, movie, tags, modules):
     
     return True
 
-# Process new movie
-def process_new_movie(server, token, metadata, modules, excluded_languages):
-    headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
-    response = requests.get(f'{server}{metadata["key"]}', headers=headers)
-    data = response.json()
-
-    media_parts = data['MediaContainer']['Metadata'][0]['Media'][0]['Part']
-    if media_parts:
-        max_size_part = max(media_parts, key=lambda part: part['size'])
-        file_path = max_size_part['file']
-        file_name = os.path.basename(file_path)
-        tags = []
-        for module in modules:
-            if module == 'Resolution':
-                Resolution = get_Resolution(data['MediaContainer']['Metadata'][0])
-                if Resolution:
-                    tags.append(Resolution)
-            elif module == 'Duration':
-                Duration = get_Duration(data['MediaContainer']['Metadata'][0])
-                if Duration:
-                    tags.append(Duration)
-            elif module == 'Rating':
-                Rating = get_Rating(data['MediaContainer']['Metadata'][0], server, token, metadata['ratingKey'])
-                if Rating:
-                    tags.append(Rating)
-                else:
-                    logger.info(f"No rating found for new movie: {metadata.get('title', 'Unknown Title')}")
-            elif module == 'Cut':
-                Cut = get_Cut(file_name, server, token, metadata['ratingKey'])
-                if Cut:
-                    tags.append(Cut)
-            elif module == 'Release':
-                Release = get_Release(file_name, server, token, metadata['ratingKey'])
-                if Release:
-                    tags.append(Release)
-            elif module == 'DynamicRange':
-                DynamicRange = get_DynamicRange(server, token, metadata['ratingKey'])
-                if DynamicRange:
-                    tags.append(DynamicRange)
-            elif module == 'Country':
-                Country = get_Country(server, token, metadata['ratingKey'])
-                if Country:
-                    tags.append(Country)
-            elif module == 'ContentRating':
-                ContentRating = get_ContentRating(data['MediaContainer']['Metadata'][0])
-                if ContentRating:
-                    tags.append(ContentRating)
-            elif module == 'Language':
-                Language = get_Language(server, token, metadata['ratingKey'], excluded_languages)
-                if Language:
-                    tags.append(Language)
-            elif module == 'AudioChannels':
-                AudioChannels = get_AudioChannels(data['MediaContainer']['Metadata'][0])
-                if AudioChannels:
-                    tags.append(AudioChannels)
-            elif module == 'Director':
-                Director = get_Director(data['MediaContainer']['Metadata'][0])
-                if Director:
-                    tags.append(Director)
-            elif module == 'Genre':
-                Genre = get_Genre(data['MediaContainer']['Metadata'][0])
-                if Genre:
-                    tags.append(Genre)
-            elif module == 'SpecialFeatures':
-                SpecialFeatures = get_SpecialFeatures(data['MediaContainer']['Metadata'][0])
-                if SpecialFeatures:
-                    tags.append(SpecialFeatures)
-            elif module == 'Studio':
-                Studio = get_Studio(data['MediaContainer']['Metadata'][0])
-                if Studio:
-                    tags.append(Studio)
-            elif module == 'AudioCodec':
-                AudioCodec = get_AudioCodec(server, token, metadata['ratingKey'])
-                if AudioCodec:
-                    tags.append(AudioCodec)
-            elif module == 'Bitrate':
-                Bitrate = get_Bitrate(server, token, metadata['ratingKey'])
-                if Bitrate:
-                    tags.append(Bitrate)
-            elif module == 'FrameRate':
-                FrameRate = get_FrameRate(data['MediaContainer']['Metadata'][0])
-                if FrameRate:
-                    tags.append(FrameRate)
-            elif module == 'Size':
-                Size = get_Size(server, token, metadata['ratingKey'])
-                if Size:
-                    tags.append(Size)
-            elif module == 'Source':
-                Source = get_Source(file_name, server, token, metadata['ratingKey'])
-                if Source:
-                    tags.append(Source)
-            elif module == 'VideoCodec':
-                VideoCodec = get_VideoCodec(data['MediaContainer']['Metadata'][0])
-                if VideoCodec:
-                    tags.append(VideoCodec)
-        update_movie(server, token, metadata, tags, modules)
-
 # Reset movies with multi-threading
 def reset_movies(server, token, skip_libraries, max_workers, batch_size):
     headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
@@ -477,22 +380,85 @@ def backup_metadata(server, token, backup_file):
     
     with open(backup_file, 'w') as f:
         json.dump(metadata, f, indent=2)
+    
+    logger.info(f"Backup created with {len(metadata)} movies to {backup_file}")
 
-# Restore metadata
+# Improved restore metadata function
 def restore_metadata(server, token, backup_file):
     with open(backup_file, 'r') as f:
         metadata = json.load(f)
     
+    logger.info(f"Starting restore from backup with {len(metadata)} movies")
+    restored_count = 0
+    
     headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
+    
+    # First, get a list of all movies currently in the libraries
+    all_current_movies = {}
+    libraries = requests.get(f'{server}/library/sections', headers=headers).json()['MediaContainer']['Directory']
+    for library in libraries:
+        if library['type'] == 'movie':
+            library_key = library['key']
+            response = requests.get(f'{server}/library/sections/{library_key}/all', headers=headers).json()
+            if 'MediaContainer' in response and 'Metadata' in response['MediaContainer']:
+                for movie in response['MediaContainer']['Metadata']:
+                    all_current_movies[movie['ratingKey']] = movie.get('title', 'Unknown')
+    
+    logger.info(f"Found {len(all_current_movies)} movies in current libraries")
+    
+    # Process each movie in the backup
     for movie_id, movie_data in metadata.items():
-        if movie_data['editionTitle']:
+        # Check if the movie still exists
+        if movie_id in all_current_movies:
+            # First reset the edition title completely
+            clear_params = {
+                'type': 1,
+                'id': movie_id,
+                'editionTitle.value': '',
+                'editionTitle.locked': 0
+            }
+            clear_response = requests.put(f'{server}/library/metadata/{movie_id}', 
+                                      headers=headers, params=clear_params)
+            
+            # Then apply the backup edition title (even if it's empty)
+            backup_edition = movie_data.get('editionTitle', '')
             params = {
                 'type': 1,
                 'id': movie_id,
-                'editionTitle.value': movie_data['editionTitle'],
-                'editionTitle.locked': 1
+                'editionTitle.value': backup_edition,
+                'editionTitle.locked': 1 if backup_edition else 0
             }
-            requests.put(f'{server}/library/metadata/{movie_id}', headers=headers, params=params)
+            restore_response = requests.put(f'{server}/library/metadata/{movie_id}', 
+                                       headers=headers, params=params)
+            
+            if restore_response.status_code == 200:
+                title = all_current_movies[movie_id]
+                if backup_edition:
+                    logger.info(f"Restored '{title}' to: '{backup_edition}'")
+                else:
+                    logger.info(f"Cleared edition for '{title}'")
+                restored_count += 1
+            else:
+                logger.error(f"Failed to restore movie ID {movie_id}: HTTP {restore_response.status_code}")
+        else:
+            logger.warning(f"Movie ID {movie_id} from backup not found in current libraries")
+    
+    # Force Plex to refresh
+    try:
+        refresh_params = {'force': 1}
+        refresh_headers = headers.copy()
+        refresh_headers['X-Plex-Container-Start'] = '0'
+        refresh_headers['X-Plex-Container-Size'] = '0'
+        
+        for library in libraries:
+            if library['type'] == 'movie':
+                library_key = library['key']
+                requests.get(f'{server}/library/sections/{library_key}/refresh', headers=refresh_headers, params=refresh_params)
+                logger.info(f"Triggered refresh for library: {library.get('title', library_key)}")
+    except Exception as e:
+        logger.error(f"Error refreshing libraries: {str(e)}")
+    
+    logger.info(f"Restoration complete. Successfully processed {restored_count} of {len(metadata)} movies.")
 
 # Main function
 def main():
@@ -500,7 +466,6 @@ def main():
     
     parser = argparse.ArgumentParser(description='Manage Plex server movie editions')
     parser.add_argument('--all', action='store_true', help='Add edition info to all movies')
-    parser.add_argument('--new', action='store_true', help='Add edition info to new movies')
     parser.add_argument('--reset', action='store_true', help='Reset edition info for all movies')
     parser.add_argument('--backup', action='store_true', help='Backup movie metadata')
     parser.add_argument('--restore', action='store_true', help='Restore movie metadata from backup')
@@ -523,34 +488,11 @@ def main():
         logger.info('Metadata restoration completed.')
     elif args.all:
         process_movies(server, token, skip_libraries, modules, excluded_languages, max_workers, batch_size)
-    elif args.new:
-        app = Flask(__name__)
-        log = logging.getLogger('werkzeug')
-        log.setLevel(logging.ERROR)
-
-        @app.route('/', methods=['POST'])
-        def webhook():
-            file = request.files.get('thumb')
-            payload = request.form.get('payload')
-            if payload:
-                data = json.loads(payload)
-                event = data.get('event')
-                if event == 'library.new':
-                    metadata = data.get('Metadata')
-                    library = metadata.get('librarySectionTitle')
-                    if library not in skip_libraries:
-                        if metadata and metadata.get('type') == 'movie':
-                            process_new_movie(server, token, metadata, modules, excluded_languages)
-            return 'OK', 200
-
-        logger.info('Starting webhook server for processing new movies...')
-        app.run(host='0.0.0.0', port=8089)
     elif args.reset:
         reset_movies(server, token, skip_libraries, max_workers, batch_size)
     else:
         logger.info('No action specified. Please use one of the following arguments:')
         logger.info('  --all: Add edition info to all movies')
-        logger.info('  --new: Start webhook server to add edition info to new movies')
         logger.info('  --reset: Reset edition info for all movies')
         logger.info('  --backup: Backup movie metadata')
         logger.info('  --restore: Restore movie metadata from backup')
