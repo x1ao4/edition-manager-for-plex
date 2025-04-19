@@ -248,7 +248,7 @@ EMP 共有 `为所有电影添加版本信息（all）`、`为新增电影添加
 注：`为新增电影添加版本信息` 模式需要服务器的管理员账号订阅了 Plex Pass 才能使用。
 
 ## 配置说明
-在使用 EMP 前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
+运行前，请先参考以下提示（示例）对 `/config/config.ini` 进行配置。
 ```
 [server]
 # Plex 服务器的地址，格式为 http://服务器 IP 地址:32400 或 http(s)://域名:端口号
@@ -444,9 +444,9 @@ PC 用户也可以通过提供的快速启动脚本来执行任务：
 - 如需使用 `为新增电影添加版本信息` 模式，请确保你在服务器的 `设置 - 网络` 中勾选了 `Webhooks` 选项。
 
 ## 赞赏
-如果你觉得这个项目对你有用，可以请我喝杯咖啡。如果你喜欢这个项目，可以给我一个⭐️。谢谢你的支持！
+如果你觉得这个项目对你有用，可以考虑请我喝杯咖啡或者给我一个⭐️。谢谢你的支持！
 
-<img width="399" alt="赞赏" src="https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/b9e79a88-f2af-4c3a-8278-479454c6393a">
+<img width="383" alt="赞赏" src="https://github.com/user-attachments/assets/bdd2226b-6282-439d-be92-5311b6e9d29c">
 <br><br>
 <a href="#edition-manager-for-plex-zh">回到顶部</a>
 <br>
@@ -704,7 +704,7 @@ The EMP operates in three modes: `add editions for all movies (all)`, `add editi
 Note: The `add editions for new movies` mode requires the server administrator account to be subscribed to Plex Pass in order to use.
 
 ## Configuration
-Before using EMP, please configure the `/config/config.ini` file according to the following tips (example).
+Before running, please configure the `/config/config.ini` file according to the following tips (example).
 ```
 [server]
 # Address of the Plex server, formatted as http://server IP address:32400 or http(s)://domain:port
@@ -902,6 +902,6 @@ If the scripts fail to run as scheduled or on startup, you may need to replace `
 ## Support
 If you found this helpful, consider buying me a coffee or giving it a ⭐️. Thanks for your support!
 
-<img width="399" alt="Support" src="https://github.com/x1ao4/edition-manager-for-plex/assets/112841659/b9e79a88-f2af-4c3a-8278-479454c6393a">
+<img width="383" alt="Support" src="https://github.com/user-attachments/assets/bdd2226b-6282-439d-be92-5311b6e9d29c">
 <br><br>
 <a href="#edition-manager-for-plex-en">Back to Top</a>
