@@ -806,7 +806,7 @@ You can run EMP using Docker containers or Python scripts. Docker containerizati
    networks: {}
    ```
 
-#### Usage
+#### How to Use
 With EMP, you can write edition information as well as remove it. Since Docker automatically starts all containers within the stack upon stack initialization, the functions for writing and removing need to be deployed separately. First, deploy `edition-manager-for-plex` to write edition information, then deploy `edition-manager-for-plex-reset` when needed to remove edition information (upon deployment, it will immediately execute a `reset editions for all movies` once. You can also use `docker-compose up --no-start` to deploy this container, which will not run immediately after deployment; start the container only when needed).
 
 - edition-manager-for-plex
@@ -840,9 +840,9 @@ You can select and configure these four containers as needed. If certain functio
 
 #### Requirements
 - Python 3.0 or higher installed.
-- Necessary third-party libraries installed using the command `pip3 install -r requirements.txt`.
+- All required dependencies installed using `pip3 install -r requirements.txt`.
 
-#### Usage
+#### How to Use
 1. Download the latest release package from [Releases](https://github.com/x1ao4/edition-manager-for-plex/releases) and extract it to a local directory.
 2. Open the `/config/config.ini` file in the directory using a text editor, fill in your Plex server address (`address`) and [X-Plex-Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`token`), set the modules to write edition information and their order (`order`), and optionally fill in other configuration options as needed.
 3. In the Plex server settings, navigate to `Webhooks`, click on `Add Webhook`, and enter your Flask server address `http://IP address of the device running the script:8089` and `Save Changes`. (Non-Plex Pass subscribers do not need to fill this.)
