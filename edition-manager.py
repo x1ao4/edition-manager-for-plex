@@ -7,16 +7,9 @@ import logging
 import requests
 import argparse
 import threading
-import queue
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from configparser import ConfigParser
-from diskcache import Cache
-
-# Initialize a cache with 1GB limit, expiring items after 1 day
-cache = Cache(directory=str(Path(__file__).parent / 'cache'), size_limit=1024 * 1024 * 1024, 
-              eviction_policy='least-recently-used', cull_limit=10, 
-              statistics=True, tag_index=True, timeout=60)
 
 # Create a logger
 logger = logging.getLogger(__name__)
@@ -35,24 +28,13 @@ def get_session():
         thread_local.session = requests.Session()
     return thread_local.session
 
-# Cached API request function
-def cached_request(url, headers, cache_key=None, force_refresh=False):
-    """Make a cached API request"""
-    if not cache_key:
-        cache_key = f"request:{url}"
-    
-    if not force_refresh and cache_key in cache:
-        logger.debug(f"Cache hit for {url}")
-        return cache[cache_key]
-    
+# Simple API request function (no caching)
+def make_request(url, headers):
+    """Make an API request without caching"""
     session = get_session()
     response = session.get(url, headers=headers)
     response.raise_for_status()
-    data = response.json()
-    
-    # Cache the response
-    cache[cache_key] = data
-    return data
+    return response.json()
 
 # Initialize settings
 def initialize_settings():
@@ -74,9 +56,9 @@ def initialize_settings():
         batch_size = config.getint('performance', 'batch_size', fallback=25)
         
         try:
-            # Test connection using cached request with forced refresh
+            # Test connection
             headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
-            response = cached_request(server, headers, "server_connection", force_refresh=True)
+            response = make_request(server, headers)
             server_name = response['MediaContainer']['friendlyName']
             logger.info(f"Successfully connected to server: {server_name}")
         except requests.exceptions.RequestException as err:
@@ -97,7 +79,7 @@ def process_movies_batch(movies_batch, server, token, modules, excluded_language
 # Main movie processing function (now with threading)
 def process_movies(server, token, skip_libraries, modules, excluded_languages, max_workers, batch_size):
     headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
-    libraries = cached_request(f'{server}/library/sections', headers)['MediaContainer']['Directory']
+    libraries = make_request(f'{server}/library/sections', headers)['MediaContainer']['Directory']
     
     # Get all movies from all movie libraries first
     all_movies = []
@@ -108,7 +90,7 @@ def process_movies(server, token, skip_libraries, modules, excluded_languages, m
             library_key = library['key']
             lib_title = library['title']
             
-            response = cached_request(f'{server}/library/sections/{library_key}/all', headers)
+            response = make_request(f'{server}/library/sections/{library_key}/all', headers)
             if 'MediaContainer' in response and 'Metadata' in response['MediaContainer']:
                 library_movies = response['MediaContainer']['Metadata']
                 all_movies.extend(library_movies)
@@ -125,27 +107,21 @@ def process_movies(server, token, skip_libraries, modules, excluded_languages, m
             executor.submit(process_movies_batch, batch, server, token, modules, excluded_languages)
             logger.info(f"Submitted batch {i//batch_size + 1}/{(len(all_movies)+batch_size-1)//batch_size} for processing")
 
-# Process a single movie (with caching)
+# Process a single movie (without caching)
 def process_single_movie(server, token, movie, modules, excluded_languages):
     headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
     movie_id = movie['ratingKey']
     
-    # Use cached metadata when possible (per movie)
-    movie_cache_key = f"movie:{movie_id}"
-    
-    # Check if detailed movie data is already in cache
+    # Fetch detailed movie data if needed
     detailed_movie = None
-    if movie_cache_key in cache:
-        detailed_movie = cache[movie_cache_key]
-    else:
-        # Need to fetch detailed info
+    try:
         detailed_response = get_session().get(f'{server}/library/metadata/{movie_id}', headers=headers)
         if detailed_response.status_code == 200:
             detailed_data = detailed_response.json()
             if 'MediaContainer' in detailed_data and 'Metadata' in detailed_data['MediaContainer']:
                 detailed_movie = detailed_data['MediaContainer']['Metadata'][0]
-                # Cache the detailed movie data
-                cache[movie_cache_key] = detailed_movie
+    except Exception as e:
+        logger.warning(f"Could not fetch detailed metadata for movie {movie.get('title', 'Unknown')}: {str(e)}")
     
     # Use detailed_movie when available, otherwise fall back to basic movie data
     movie_data = detailed_movie if detailed_movie else movie
@@ -312,7 +288,7 @@ def update_movie(server, token, movie, tags, modules):
 # Reset movies with multi-threading
 def reset_movies(server, token, skip_libraries, max_workers, batch_size):
     headers = {'X-Plex-Token': token, 'Accept': 'application/json'}
-    libraries = cached_request(f'{server}/library/sections', headers)['MediaContainer']['Directory']
+    libraries = make_request(f'{server}/library/sections', headers)['MediaContainer']['Directory']
     
     # Collect all movies that need to be reset
     all_to_reset = []
@@ -323,7 +299,7 @@ def reset_movies(server, token, skip_libraries, max_workers, batch_size):
             library_key = library['key']
             lib_title = library['title']
             
-            response = cached_request(f'{server}/library/sections/{library_key}/all', headers)
+            response = make_request(f'{server}/library/sections/{library_key}/all', headers)
             if 'MediaContainer' in response and 'Metadata' in response['MediaContainer']:
                 library_movies = response['MediaContainer']['Metadata']
                 # Only include movies with editionTitle
@@ -469,14 +445,8 @@ def main():
     parser.add_argument('--reset', action='store_true', help='Reset edition info for all movies')
     parser.add_argument('--backup', action='store_true', help='Backup movie metadata')
     parser.add_argument('--restore', action='store_true', help='Restore movie metadata from backup')
-    parser.add_argument('--clear-cache', action='store_true', help='Clear cached data')
     
     args = parser.parse_args()
-    
-    if args.clear_cache:
-        logger.info("Clearing cache...")
-        cache.clear()
-        logger.info("Cache cleared.")
     
     backup_file = Path(__file__).parent / 'metadata_backup' / 'metadata_backup.json'
     
@@ -496,22 +466,7 @@ def main():
         logger.info('  --reset: Reset edition info for all movies')
         logger.info('  --backup: Backup movie metadata')
         logger.info('  --restore: Restore movie metadata from backup')
-        logger.info('  --clear-cache: Clear cached data')
     
-    try:
-        cache_stats = cache.stats()
-        if isinstance(cache_stats, dict):
-            hits = cache_stats.get('hits', 0)
-            misses = cache_stats.get('misses', 0)
-        else:
-            hits = cache_stats[0] if len(cache_stats) > 0 else 0
-            misses = cache_stats[1] if len(cache_stats) > 1 else 0
-            
-        cache_size_mb = cache.volume() // (1024 * 1024) if hasattr(cache, 'volume') else 0
-        logger.info(f"Cache statistics: hits={hits}, misses={misses}, size={cache_size_mb}MB")
-    except Exception as e:
-        logger.info(f"Unable to get cache statistics: {str(e)}")
-
     logger.info('Script execution completed.')
 
 if __name__ == '__main__':

@@ -244,7 +244,7 @@ def open_settings_window(root):
     # Create settings window
     settings_window = tk.Toplevel(root)
     settings_window.title("Edition Manager Settings")
-    settings_window.geometry("600x520")
+    settings_window.geometry("600x480")
     settings_window.grab_set()  # Make window modal
     
     # Add icon if available
@@ -397,7 +397,7 @@ def open_settings_window(root):
     tmdb_api_key.grid(row=2, column=1, sticky=tk.W, padx=5, pady=10)
     tmdb_api_key.insert(0, config.get('rating', 'tmdb_api_key', fallback=''))
     
-    # Performance settings
+    # Performance settings (removed cache TTL section)
     ttk.Label(performance_frame, text="Worker Threads:", font=('', 10, 'bold')).grid(row=0, column=0, sticky=tk.W, padx=5, pady=10)
     max_workers = ttk.Spinbox(performance_frame, from_=1, to=32, width=5)
     max_workers.grid(row=0, column=1, sticky=tk.W, padx=5, pady=10)
@@ -412,14 +412,6 @@ def open_settings_window(root):
     ttk.Label(performance_frame, text="Movies to process in each batch (10-30 recommended)", 
               font=('', 8), foreground="#666").grid(row=3, column=1, sticky=tk.W, padx=5)
     
-    ttk.Label(performance_frame, text="Cache TTL (hours):", font=('', 10, 'bold')).grid(row=4, column=0, sticky=tk.W, padx=5, pady=10)
-    cache_ttl_hours = ttk.Spinbox(performance_frame, from_=1, to=168, width=5)
-    cache_ttl_hours.grid(row=4, column=1, sticky=tk.W, padx=5, pady=10)
-    cache_ttl_seconds = config.getint('performance', 'cache_ttl', fallback=86400)
-    cache_ttl_hours.set(str(cache_ttl_seconds // 3600))
-    ttk.Label(performance_frame, text="Time to live for cache (30 recommended for daily cron jobs)", 
-              font=('', 8), foreground="#666").grid(row=5, column=1, sticky=tk.W, padx=5)
-    
     # Create a button frame
     button_frame = ttk.Frame(settings_window)
     button_frame.pack(fill=tk.X, padx=15, pady=15)
@@ -429,12 +421,6 @@ def open_settings_window(root):
         # Get enabled modules directly from the listbox
         enabled_modules = module_listbox.get_enabled_modules()
         module_order_value = ';'.join(enabled_modules)
-        
-        # Convert cache TTL from hours to seconds
-        try:
-            cache_ttl_seconds = int(cache_ttl_hours.get()) * 3600
-        except ValueError:
-            cache_ttl_seconds = 86400  # Default to 24 hours if invalid
         
         # Update config object
         config['server'] = {
@@ -464,7 +450,6 @@ def open_settings_window(root):
             
         config['performance']['max_workers'] = max_workers.get()
         config['performance']['batch_size'] = batch_size.get()
-        config['performance']['cache_ttl'] = str(cache_ttl_seconds)
         
         save_config(config, config_path)
         settings_window.destroy()
@@ -515,7 +500,7 @@ def create_gui():
     title_label = ttk.Label(header_frame, text="Edition Manager", style='Header.TLabel')
     title_label.pack(side=tk.LEFT)
     
-    version_label = ttk.Label(header_frame, text="v1.5", foreground="#666")
+    version_label = ttk.Label(header_frame, text="v1.6", foreground="#666")
     version_label.pack(side=tk.LEFT, padx=(10, 0), pady=3)
 
     # Buttons in a modern card-like frame
@@ -529,8 +514,8 @@ def create_gui():
     button_configs = [
         ("Process All Movies", "--all"),
         ("Reset All Movies", "--reset"),
-        ("Backup Metadata", "--backup"),
-        ("Restore Metadata", "--restore"),
+        ("Backup Editions", "--backup"),
+        ("Restore Editions", "--restore"),
         ("Settings", "settings")  # Special case for settings
     ]
     
